@@ -1,5 +1,11 @@
 # https://pre-commit.com/hooks.html
 repos:
+  - repo: local
+    hooks:
+      - id: copyright
+        name: Update copyright year
+        entry: pre-commit-copyright
+        language: python
   - repo: https://github.com/pre-commit/pre-commit
     rev: v2.21.0
     hooks:
@@ -25,12 +31,26 @@ repos:
     rev: 5.11.4
     hooks:
       - id: isort
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.5.1
+    hooks:
+      - id: docformatter
+  - repo: https://github.com/PyCQA/prospector
+    rev: v1.8.4
+    hooks:
+      - id: prospector
+        args: [--tool=pydocstyle, --die-on-tool-error]
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.0.0
+    hooks:
+      - id: autoflake
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.2
     hooks:
       - id: codespell
         args:
           - --ignore-words=.github/spell-ignore-words.txt
+        exclude: ^poetry.lock$
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.3.1
     hooks:

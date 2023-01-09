@@ -1,0 +1,33 @@
+strictness: veryhigh
+max-line-length: 110
+doc-warnings: True
+
+pylint:
+  disable:
+    - too-many-arguments
+    - too-many-statements
+
+pycodestyle:
+  disable:
+    - E501 # line too long
+    - E203 # whitespace before ':'
+
+#pydocstyle:
+#  disable:
+#    - D100 # Missing docstring in public module
+#    - D102 # Missing docstring in public method
+#    - D104 # Missing docstring in public package
+#    - D212 # Multi-line docstring summary should start at the first line
+#    - D202 # No blank lines allowed after function docstring
+
+bandit:
+  run: true
+
+mypy:
+  run: true
+
+pyroma:
+  run: true
+
+mccabe:
+  run: false

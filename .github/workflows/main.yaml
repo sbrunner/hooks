@@ -1,0 +1,75 @@
+name: Continuous integration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+
+env:
+  HAS_SECRETS: ${{ secrets.HAS_SECRETS }}
+  PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
+
+jobs:
+  build:
+    name: Run tests
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - '3.8'
+          - '3.9'
+          - '3.10'
+
+    steps:
+      - name: GitHub event
+        run: echo ${GITHUB_EVENT} | python3 -m json.tool
+        env:
+          GITHUB_EVENT: ${{ toJson(github) }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - uses: actions/checkout@v3
+
+      - run: poetry install
+      - name: Versions
+        run: |
+          poetry --version
+          python --version
+          poetry run python --version
+          [ "$(python3 --version)" == "$(poetry run python --version)" ]
+
+      - run: poetry run pytest --verbose --color=yes tests
+
+      - run: poetry install --extras=debug_images
+      - run: poetry run prospector --output=pylint --die-on-tool-error
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - run: pre-commit run --all-files
+
+      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
+      - run: python3 -m pip install --user $(grep poetry ci/requirements.txt)
+      - name: Init pypi
+        run: |
+          echo "[pypi]" > ~/.pypirc
+          echo "username = ${{ secrets.PYPI_USERNAME }}" >> ~/.pypirc
+          echo "password = ${{ secrets.PYPI_PASSWORD }}" >> ~/.pypirc
+          python3 -m pip install --user wheel twine
+        if: env.HAS_SECRETS == 'HAS_SECRETS'
+      - name: Publish
+        run: c2cciutils-publish
+        if: env.HAS_SECRETS == 'HAS_SECRETS'
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

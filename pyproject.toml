@@ -1,0 +1,67 @@
+[tool.black]
+line-length = 110
+target-version = ["py38"]
+
+[tool.mypy]
+python_version = 3.8
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+strict = true
+plugins = ["numpy.typing.mypy_plugin"]
+
+[tool.pytest.ini_options]
+pytest_plugins = ["pytest_profiling"]
+
+[tool.poetry]
+name = "pre-commit-copyright"
+version = "0.0.0"
+description = "Pre commit hooh to update the copyright"
+readme = "README.md"
+keywords = ["pre-commit"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Typing :: Typed",
+]
+authors = ["Stéphane Brunner <stephane.brunner@gmail.com>"]
+homepage = "https://hub.docker.com/r/sbrunner/pre-commit-copyright/"
+repository = "https://github.com/sbrunner/pre-commit-copyright"
+
+[tool.poetry.scripts]
+pre-commit-copyright = "pre_commit_copyright:main"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+
+[tool.poetry.dev-dependencies]
+prospector = { version = "1.7.7", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+pattern = "^(?P<base>\\d+(\\.\\d+)*)"
+format-jinja = """
+{%- if env.get("VERSION_TYPE") == "version_branch" -%}
+{{serialize_pep440(bump_version(base, 1 if env.get("IS_MASTER") == "TRUE" else 2), dev=distance)}}
+{%- elif distance == 0 -%}
+{{serialize_pep440(base)}}
+{%- else -%}
+{{serialize_pep440(bump_version(base), dev=distance)}}
+{%- endif -%}
+"""
+
+[tool.poetry-plugin-tweak-dependencies-version]
+default = "present"

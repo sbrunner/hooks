@@ -1,0 +1,2 @@
+* text whitespace=trailing-space,tab-in-indent,cr-at-eol,tabwidth=4 eol=lf
+*.rst text conflict-marker-size=100

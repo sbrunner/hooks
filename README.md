@@ -1,6 +1,6 @@
 # Pre commit to update the copyright header
 
-[Pre-commit](https://pre-commit.com/) hook used to check if the copyright is up to date.
+[pre-commit](https://pre-commit.com/) hook used to check if the copyright is up to date.
 
 ### Adding to your `.pre-commit-config.yaml`
 

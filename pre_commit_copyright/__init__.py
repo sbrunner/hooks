@@ -53,7 +53,7 @@ def main() -> None:
             with open(file_name, "w", encoding="utf-8") as file_obj:
                 file_obj.write(content)
 
-    if global_updated and os.environ.get("CI", "false").lower() in ("true", "1"):
+    if global_updated:
         sys.exit(1)
 
 

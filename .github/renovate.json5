@@ -15,7 +15,7 @@
   regexManagers: [
     {
       fileMatch: ['^.pre-commit-config.yaml'],
-      matchStrings: [" +- '?(?<depName>[^']+)@(?<currentValue>[0-9\\.]+)'? # (?<datasource>.+)"],
+      matchStrings: [" +- '?(?<depName>[^' ]+)@(?<currentValue>[0-9\\.]+)'? # (?<datasource>.+)"],
     },
   ],
   packageRules: [

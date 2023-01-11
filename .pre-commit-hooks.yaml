@@ -1,5 +1,5 @@
 - id: copyright
-  name: Update copyright year
+  name: check copyright year
   entry: pre-commit-copyright
   language: python
   types:

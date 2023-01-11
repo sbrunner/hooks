@@ -24,11 +24,11 @@ def main() -> None:
         with open(args.config, encoding="utf-8") as config_file:
             config = yaml.load(config_file, Loader=yaml.SafeLoader)
 
-    one_date_re = re.compile(config.get("cone_date_re", r"^# Copyright \(c\) (?P<year>[0-9]{4})"))
+    one_date_re = re.compile(config.get("one_date_re", r" Copyright \(c\) (?P<year>[0-9]{4})"))
     tow_date_re = re.compile(
-        config.get("cone_date_re", r"^# Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")
+        config.get("tow_date_re", r" Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")
     )
-    tow_date_format = config.get("one_date_format", "# Copyright (c) {from}-{to}")
+    tow_date_format = config.get("tow_date_format", " Copyright (c) {from}-{to}")
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
 
     global_updated = False

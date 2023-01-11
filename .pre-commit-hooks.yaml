@@ -2,3 +2,5 @@
   name: Update copyright year
   entry: pre-commit-copyright
   language: python
+  types:
+    - text

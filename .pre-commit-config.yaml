@@ -11,6 +11,8 @@ repos:
         name: Update copyright year
         entry: pre-commit-copyright
         language: python
+        types:
+          - text
   - repo: https://github.com/pre-commit/pre-commit
     rev: v2.21.0
     hooks:

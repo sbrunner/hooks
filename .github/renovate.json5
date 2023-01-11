@@ -12,14 +12,6 @@
   'pre-commit': {
     enabled: true,
   },
-  regexManagers: [
-    {
-      fileMatch: ['^ci/dpkg-versions.yaml$'],
-      matchStrings: [" *(?<depName>[^'\\s]+): '?(?<currentValue>[^'\\s/]*[0-9][^'\\s/]*)'?"],
-      datasourceTemplate: 'repology',
-      versioningTemplate: 'loose',
-    },
-  ],
   packageRules: [
     /** Automerge the patch, the minor and the dev dependency */
     {
@@ -35,13 +27,6 @@
     {
       matchUpdateTypes: ['minor'],
       groupName: 'all minor versions',
-      automerge: true,
-    },
-    /** Update dpkg versions every day */
-    {
-      matchPaths: ['ci/dpkg-versions.yaml'],
-      schedule: ['every weekday'],
-      groupName: 'dpkg',
       automerge: true,
     },
     /** Group Poetry packages */

@@ -47,7 +47,9 @@ def main() -> None:
 
         with open(file_name, encoding="utf-8") as file_obj:
             content = file_obj.read()
-            updated, content = update_file(content, used_year, one_date_re, tow_date_re, tow_date_format)
+            updated, content = update_file(
+                content, used_year, one_date_re, tow_date_re, tow_date_format, file_name
+            )
         if updated:
             global_updated = True
             with open(file_name, "w", encoding="utf-8") as file_obj:
@@ -63,6 +65,7 @@ def update_file(
     one_date_re: re.Match,
     tow_date_re: re.Match,
     tow_date_format: str,
+    filename: str = "<unknown>",
 ) -> Tuple[bool, str]:
     """Update the copyright header of the file content."""
     tow_date_match = tow_date_re.search(content)
@@ -85,7 +88,7 @@ def update_file(
             tow_date_format.format(**{"from": copyright_year, "to": current_year}), content
         )
 
-    print("No copyright found")
+    print(f"No copyright found on '{filename}'.")
     return False, content
 
 

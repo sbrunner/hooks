@@ -34,7 +34,7 @@ def main() -> None:
     global_updated = False
     for file_name in args.files:
         date_str = subprocess.run(  # nosec
-            ["git", "log", "--follow", "--pretty=format:%ci", file_name],
+            ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],
             check=True,
             encoding="utf-8",
             stdout=subprocess.PIPE,

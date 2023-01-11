@@ -1,4 +1,9 @@
 # https://pre-commit.com/hooks.html
+
+ci:
+  skip:
+    - copyright
+
 repos:
   - repo: local
     hooks:

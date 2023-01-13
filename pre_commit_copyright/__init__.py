@@ -16,6 +16,7 @@ def main() -> None:
     """Update the copyright header of the files."""
     args_parser = argparse.ArgumentParser("Update the copyright header of the files")
     args_parser.add_argument("--config", help="The configuration file", default=".github/copyright.yaml")
+    args_parser.add_argument("--required", action="store_true", help="The copyright is required")
     args_parser.add_argument("files", nargs=argparse.REMAINDER, help="The files to update")
     args = args_parser.parse_args()
 
@@ -31,7 +32,7 @@ def main() -> None:
     tow_date_format = config.get("tow_date_format", " Copyright (c) {from}-{to}")
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
 
-    global_updated = False
+    success = True
     for file_name in args.files:
         date_str = subprocess.run(  # nosec
             ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],
@@ -47,15 +48,15 @@ def main() -> None:
 
         with open(file_name, encoding="utf-8") as file_obj:
             content = file_obj.read()
-            updated, content = update_file(
-                content, used_year, one_date_re, tow_date_re, tow_date_format, file_name
+            file_success, content = update_file(
+                content, used_year, one_date_re, tow_date_re, tow_date_format, file_name, args.required
             )
-        if updated:
-            global_updated = True
+        if not file_success:
+            success = False
             with open(file_name, "w", encoding="utf-8") as file_obj:
                 file_obj.write(content)
 
-    if global_updated:
+    if not success:
         sys.exit(1)
 
 
@@ -66,14 +67,15 @@ def update_file(
     tow_date_re: re.Match,
     tow_date_format: str,
     filename: str = "<unknown>",
+    required: bool = False,
 ) -> Tuple[bool, str]:
     """Update the copyright header of the file content."""
     tow_date_match = tow_date_re.search(content)
     if tow_date_match:
         if tow_date_match.group("to") == current_year:
-            return False, content
+            return True, content
 
-        return True, tow_date_re.sub(
+        return False, tow_date_re.sub(
             tow_date_format.format(**{"from": tow_date_match.group("from"), "to": current_year}), content
         )
 
@@ -82,14 +84,14 @@ def update_file(
         copyright_year = one_date_match.group("year")
 
         if copyright_year == current_year:
-            return False, content
+            return True, content
 
-        return True, one_date_re.sub(
+        return False, one_date_re.sub(
             tow_date_format.format(**{"from": copyright_year, "to": current_year}), content
         )
 
     print(f"No copyright found on '{filename}'.")
-    return False, content
+    return not required, content
 
 
 if __name__ == "__main__":

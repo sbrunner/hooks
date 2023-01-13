@@ -4,3 +4,11 @@
   language: python
   types:
     - text
+- id: copyright-required
+  name: check copyright year
+  entry: pre-commit-copyright
+  args:
+    - --required
+  language: python
+  types:
+    - text

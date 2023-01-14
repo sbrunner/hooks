@@ -3,6 +3,11 @@
 ci:
   skip:
     - copyright
+    - workflows-require-timeout
+    - poetry-check
+    - poetry-lock
+    - pipenv-lock
+    - helm-lock
 
 repos:
   - repo: local
@@ -13,6 +18,47 @@ repos:
         language: python
         types:
           - text
+      - id: workflows-require-timeout
+        name: workflows require timeout
+        entry: pre-commit-workflow-timeout
+        files: ^\.github/workflows/.+\.ya?ml$
+        language: python
+      - id: poetry-check
+        name: poetry check
+        entry: pre-commit-run-in-dir --cmd poetry check
+        args:
+          - --files
+        language: python
+        additional_dependencies:
+          - poetry==1.3.2 # pypi
+        files: ^(|.*/)pyproject\.toml$
+      - id: poetry-lock
+        name: poetry lock
+        entry: pre-commit-run-in-dir --cmd poetry lock
+        args:
+          - -a--no-update
+          - --files
+        language: python
+        additional_dependencies:
+          - poetry==1.3.2 # pypi
+        files: ^(|.*/)pyproject\.toml$
+      - id: pipenv-lock
+        name: pipenv lock
+        entry: pre-commit-run-in-dir --cmd pipenv lock
+        args:
+          - -a--keep-outdated
+          - --files
+        language: python
+        additional_dependencies:
+          - pipenv
+        files: ^(|.*/)Pipfile$
+      - id: helm-lock
+        name: helm lock
+        entry: pre-commit-run-in-dir --cmd helm dependency update
+        args:
+          - --files
+        language: python
+        files: ^(|.*/)Chart\.yaml$
   - repo: https://github.com/pre-commit/pre-commit
     rev: v2.21.0
     hooks:

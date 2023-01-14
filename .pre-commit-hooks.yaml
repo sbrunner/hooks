@@ -12,3 +12,49 @@
   language: python
   types:
     - text
+- id: workflows-require-timeout
+  name: workflows require timeout
+  description: Check that the workflows have a timeout
+  entry: pre-commit-workflow-timeout
+  files: ^\.github/workflows/.+\.ya?ml$
+  language: python
+- id: poetry-check
+  name: poetry check
+  description: Validates the structure of the pyproject.toml file
+  entry: pre-commit-run-in-dir --cmd poetry check
+  args:
+    - --files
+  language: python
+  additional_dependencies:
+    - poetry
+  files: ^(|.*/)pyproject\.toml$
+- id: poetry-lock
+  name: poetry lock
+  description: Lock the from the pyproject.toml file
+  entry: pre-commit-run-in-dir --cmd poetry lock
+  args:
+    - -a--no-update
+    - --files
+  language: python
+  additional_dependencies:
+    - poetry
+  files: ^(|.*/)pyproject\.toml$
+- id: pipenv-lock
+  name: pipenv lock
+  description: Lock the from the Pipfile file
+  entry: pre-commit-run-in-dir --cmd pipenv lock
+  args:
+    - -a--keep-outdated
+    - --files
+  language: python
+  additional_dependencies:
+    - pipenv
+  files: ^(|.*/)Pipfile$
+- id: helm-lock
+  name: helm lock
+  description: Lock the from the Chart.yaml file
+  entry: pre-commit-run-in-dir --cmd helm dependency update
+  args:
+    - --files
+  language: python
+  files: ^(|.*/)Chart\.yaml$

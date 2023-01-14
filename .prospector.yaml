@@ -13,6 +13,10 @@ pycodestyle:
     - E501 # line too long
     - E203 # whitespace before ':'
 
+pydocstyle:
+  disable:
+    - D202 # no blank lines after function docstring
+
 bandit:
   run: true
 

@@ -34,6 +34,8 @@ repository = "https://github.com/sbrunner/pre-commit-hooks"
 
 [tool.poetry.scripts]
 pre-commit-copyright = "pre_commit_hooks.copyright:main"
+pre-commit-workflow-timeout = "pre_commit_hooks.workflow_timeout:main"
+pre-commit-run-in-dir = "pre_commit_hooks.run_in_dir:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"

@@ -2,7 +2,7 @@ import re
 
 import pytest
 
-from pre_commit_copyright import update_file
+from pre_commit_hooks.copyright import update_file
 
 
 @pytest.mark.parametrize(

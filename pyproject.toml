@@ -12,9 +12,9 @@ strict = true
 plugins = ["numpy.typing.mypy_plugin"]
 
 [tool.poetry]
-name = "pre-commit-copyright"
+name = "pre-commit-hooks"
 version = "0.0.0"
-description = "Pre commit hooh to update the copyright"
+description = "Pre commit hook by sbrunner"
 readme = "README.md"
 keywords = ["pre-commit"]
 classifiers = [
@@ -30,11 +30,10 @@ classifiers = [
     "Typing :: Typed",
 ]
 authors = ["Stéphane Brunner <stephane.brunner@gmail.com>"]
-homepage = "https://hub.docker.com/r/sbrunner/pre-commit-copyright/"
-repository = "https://github.com/sbrunner/pre-commit-copyright"
+repository = "https://github.com/sbrunner/pre-commit-hooks"
 
 [tool.poetry.scripts]
-pre-commit-copyright = "pre_commit_copyright:main"
+pre-commit-copyright = "pre_commit_hooks.copyright:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"

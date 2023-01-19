@@ -6,79 +6,38 @@ Check if the copyright is up to date (using the Git history).
 
 ## Adding to your `.pre-commit-config.yaml`
 
-Check that the copyright is up to date:
+:
 
 ```yaml
+ci:
+  skip:
+    # Skip the copyright check on pre-commit.ci because we don't have the Git history
+    - copyright
+    - copyright-required
+
 repos:
   - repo: https://github.com/sbrunner/pre-commit-hooks
     rev: <version> # Use the ref you want to point at
     hooks:
+      # Check that the copyright is up to date
       - id: copyright
-```
-
-Check that the copyright is present and up to date:
-
-```yaml
-repos:
-  - repo: https://github.com/sbrunner/pre-commit-hooks
-    rev: <version> # Use the ref you want to point at
-    hooks:
+      # Check that the copyright is present and up to date
       - id: copyright-required
-```
-
-Required timeout in GitHub workflow files:
-
-```yaml
-repos:
-  - repo: https://github.com/sbrunner/pre-commit-hooks
-    rev: <version>
-    hooks:
+      # Require a timeout in GitHub workflow files
       - id: workflows-require-timeout
-```
-
-Check Poetry config:
-
-```yaml
-repos:
-  - repo: https://github.com/sbrunner/pre-commit-hooks
-    rev: <version>
-    hooks:
+      # Check Poetry config
       - id: poetry-check
         additional_dependencies:
           - poetry==<version>
-```
-
-Do Poetry lock:
-
-```yaml
-repos:
-  - repo: https://github.com/sbrunner/pre-commit-hooks
-    rev: <version>
-    hooks:
+      # Do Poetry lock
       - id: poetry-lock
         additional_dependencies:
           - poetry==<version>
-```
-
-Do Pipfile lock:
-
-```yaml
-repos:
-  - repo: https://github.com/sbrunner/pre-commit-hooks
-    rev: <version>
-    hooks:
+      # Do Pipfile lock
       - id: pipenv-lock
         additional_dependencies:
           - pipenv==<version>
-```
-
-Do Helm lock:
-
-```yaml
-repos:
-  - repo: https://github.com/sbrunner/pre-commit-hooks
-    rev: <version>
-    hooks:
+      # Do Helm lock (helm should be installed)
       - id: helm-lock
 ```
 

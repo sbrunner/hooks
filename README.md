@@ -6,8 +6,6 @@ Check if the copyright is up to date (using the Git history).
 
 ## Adding to your `.pre-commit-config.yaml`
 
-:
-
 ```yaml
 ci:
   skip:

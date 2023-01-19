@@ -12,6 +12,9 @@ ci:
     # Skip the copyright check on pre-commit.ci because we don't have the Git history
     - copyright
     - copyright-required
+    # Poetry didn't works with Python 3.11
+    - poetry-lock
+    - poetry-check
 
 repos:
   - repo: https://github.com/sbrunner/pre-commit-hooks

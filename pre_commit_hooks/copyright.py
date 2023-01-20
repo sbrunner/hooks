@@ -19,6 +19,7 @@ def main() -> None:
     args_parser = argparse.ArgumentParser("Update the copyright header of the files")
     args_parser.add_argument("--config", help="The configuration file", default=".github/copyright.yaml")
     args_parser.add_argument("--required", action="store_true", help="The copyright is required")
+    args_parser.add_argument("--verbose", action="store_true", help="Verbose mode")
     args_parser.add_argument("files", nargs=argparse.REMAINDER, help="The files to update")
     args = args_parser.parse_args()
 
@@ -51,7 +52,14 @@ def main() -> None:
         with open(file_name, encoding="utf-8") as file_obj:
             content = file_obj.read()
             file_success, content = update_file(
-                content, used_year, one_date_re, tow_date_re, tow_date_format, file_name, args.required
+                content,
+                used_year,
+                one_date_re,
+                tow_date_re,
+                tow_date_format,
+                file_name,
+                args.required,
+                args.verbose,
             )
         if not file_success:
             success = False
@@ -70,6 +78,7 @@ def update_file(
     tow_date_format: str,
     filename: str = "<unknown>",
     required: bool = False,
+    verbose: bool = False,
 ) -> Tuple[bool, str]:
     """Update the copyright header of the file content."""
     tow_date_match = tow_date_re.search(content)
@@ -92,7 +101,8 @@ def update_file(
             tow_date_format.format(**{"from": copyright_year, "to": CURRENT_YEAR}), content
         )
 
-    print(f"No copyright found on '{filename}'.")
+    if required or verbose:
+        print(f"No copyright found on '{filename}'.")
     return not required, content
 
 

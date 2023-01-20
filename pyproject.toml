@@ -12,7 +12,7 @@ strict = true
 plugins = ["numpy.typing.mypy_plugin"]
 
 [tool.poetry]
-name = "pre-commit-hooks"
+name = "sbrunner-pre-commit-hooks"
 version = "0.0.0"
 description = "Pre commit hook by sbrunner"
 readme = "README.md"

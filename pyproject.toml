@@ -12,7 +12,7 @@ strict = true
 plugins = ["numpy.typing.mypy_plugin"]
 
 [tool.poetry]
-name = "pre-commit-hooks"
+name = "sbrunner-pre-commit-hooks"
 version = "0.0.0"
 description = "Pre commit hook by sbrunner"
 readme = "README.md"
@@ -33,9 +33,9 @@ authors = ["Stéphane Brunner <stephane.brunner@gmail.com>"]
 repository = "https://github.com/sbrunner/pre-commit-hooks"
 
 [tool.poetry.scripts]
-pre-commit-copyright = "pre_commit_hooks.copyright:main"
-pre-commit-workflow-timeout = "pre_commit_hooks.workflow_timeout:main"
-pre-commit-run-in-dir = "pre_commit_hooks.run_in_dir:main"
+pre-commit-copyright = "sbrunner_pre_commit_hooks.copyright:main"
+pre-commit-workflow-timeout = "sbrunner_pre_commit_hooks.workflow_timeout:main"
+pre-commit-run-in-dir = "sbrunner_pre_commit_hooks.run_in_dir:main"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"

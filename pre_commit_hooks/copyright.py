@@ -11,6 +11,8 @@ from typing import Tuple
 
 import yaml
 
+CURRENT_YEAR = str(datetime.datetime.now().year)
+
 
 def main() -> None:
     """Update the copyright header of the files."""
@@ -41,7 +43,7 @@ def main() -> None:
             stdout=subprocess.PIPE,
         ).stdout
         if not date_str:
-            used_year = str(datetime.datetime.now().year)
+            used_year = CURRENT_YEAR
         else:
             used_year_match = year_re.search(date_str)
             used_year = used_year_match.group("year")
@@ -62,7 +64,7 @@ def main() -> None:
 
 def update_file(
     content: str,
-    current_year: str,
+    last_year: str,
     one_date_re: re.Match,
     tow_date_re: re.Match,
     tow_date_format: str,
@@ -72,22 +74,22 @@ def update_file(
     """Update the copyright header of the file content."""
     tow_date_match = tow_date_re.search(content)
     if tow_date_match:
-        if tow_date_match.group("to") == current_year:
+        if tow_date_match.group("to") == last_year:
             return True, content
 
         return False, tow_date_re.sub(
-            tow_date_format.format(**{"from": tow_date_match.group("from"), "to": current_year}), content
+            tow_date_format.format(**{"from": tow_date_match.group("from"), "to": CURRENT_YEAR}), content
         )
 
     one_date_match = one_date_re.search(content)
     if one_date_match:
         copyright_year = one_date_match.group("year")
 
-        if copyright_year == current_year:
+        if copyright_year == last_year:
             return True, content
 
         return False, one_date_re.sub(
-            tow_date_format.format(**{"from": copyright_year, "to": current_year}), content
+            tow_date_format.format(**{"from": copyright_year, "to": CURRENT_YEAR}), content
         )
 
     print(f"No copyright found on '{filename}'.")

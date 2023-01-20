@@ -36,18 +36,34 @@ def main() -> None:
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
 
     success = True
+    no_git_log = False
     for file_name in args.files:
-        date_str = subprocess.run(  # nosec
-            ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],
-            check=True,
-            encoding="utf-8",
-            stdout=subprocess.PIPE,
-        ).stdout
-        if not date_str:
+        try:
+            date_str = subprocess.run(  # nosec
+                ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],
+                check=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+            ).stdout
+            if not date_str:
+                if args.verbose:
+                    print(f"No log found with git on '{file_name}'.")
+                else:
+                    if not no_git_log:
+                        print(f"No log found with git on '{file_name}' (the next messages will be hidden).")
+                        no_git_log = True
+                used_year = CURRENT_YEAR
+            else:
+                used_year_match = year_re.search(date_str)
+                used_year = used_year_match.group("year")
+        except FileNotFoundError:
+            if not no_git_log:
+                print("No Git found.")
+                no_git_log = True
             used_year = CURRENT_YEAR
-        else:
-            used_year_match = year_re.search(date_str)
-            used_year = used_year_match.group("year")
+        except subprocess.CalledProcessError as error:
+            print(f"Error with Git on '{file_name}' ({str(error)}).")
+            used_year = CURRENT_YEAR
 
         with open(file_name, encoding="utf-8") as file_obj:
             content = file_obj.read()

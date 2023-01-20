@@ -39,6 +39,15 @@ def main() -> None:
     no_git_log = False
     for file_name in args.files:
         try:
+            status_str = subprocess.run(  # nosec
+                ["git", "status", "--porcelain", "--", file_name],
+                check=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+            ).stdout
+            if status_str:
+                used_year = CURRENT_YEAR
+
             date_str = subprocess.run(  # nosec
                 ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],
                 check=True,

@@ -17,6 +17,7 @@ version = "0.0.0"
 description = "Pre commit hook by sbrunner"
 readme = "README.md"
 keywords = ["pre-commit"]
+license = "BSD-2-Clause"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",

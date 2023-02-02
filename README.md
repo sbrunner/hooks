@@ -17,7 +17,7 @@ ci:
     - poetry-check
 
 repos:
-  - repo: https://github.com/sbrunner/pre-commit-hooks
+  - repo: https://github.com/sbrunner/hooks
     rev: <version> # Use the ref you want to point at
     hooks:
       # Check that the copyright is up to date

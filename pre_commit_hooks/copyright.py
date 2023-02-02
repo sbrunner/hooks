@@ -32,6 +32,7 @@ def main() -> None:
     tow_date_re = re.compile(
         config.get("tow_date_re", r" Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")
     )
+    one_date_format = config.get("one_date_format", " Copyright (c) {year}")
     tow_date_format = config.get("tow_date_format", " Copyright (c) {from}-{to}")
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
 
@@ -81,6 +82,7 @@ def main() -> None:
                 used_year,
                 one_date_re,
                 tow_date_re,
+                one_date_format,
                 tow_date_format,
                 file_name,
                 args.required,
@@ -100,6 +102,7 @@ def update_file(
     last_year: str,
     one_date_re: re.Match,
     tow_date_re: re.Match,
+    one_date_format: str,
     tow_date_format: str,
     filename: str = "<unknown>",
     required: bool = False,
@@ -109,6 +112,10 @@ def update_file(
     tow_date_match = tow_date_re.search(content)
     if tow_date_match:
         if tow_date_match.group("to") == last_year:
+            if tow_date_match.group("from") == tow_date_match.group("to"):
+                return False, tow_date_re.sub(
+                    one_date_format.format(**{"year": tow_date_match.group("from")}), content
+                )
             return True, content
 
         return False, tow_date_re.sub(

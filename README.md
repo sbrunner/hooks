@@ -51,5 +51,6 @@ Default values:
 ```yaml
 one_date_re: ' Copyright \\(c\\) (?P<year>[0-9]{4})"))'
 tow_date_re: ' Copyright \\(c\\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")'
+one_date_format: ' Copyright (c) {year}")'
 tow_date_format: ' Copyright (c) {from}-{to}")'
 ```

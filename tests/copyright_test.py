@@ -14,6 +14,7 @@ from pre_commit_hooks.copyright import update_file
         ("# Copyright (c) 2022\ntoto", "# Copyright (c) 2022-2023\ntoto", False, False),
         ("# Copyright (c) 2022-2023\ntoto", "# Copyright (c) 2022-2023\ntoto", True, False),
         ("# Copyright (c) 2021-2022\ntoto", "# Copyright (c) 2021-2023\ntoto", False, False),
+        ("# Copyright (c) 2023-2023\ntoto", "# Copyright (c) 2023\ntoto", False, False),
     ],
 )
 def test_update_file(content: str, expected: str, expected_updated: bool, required: bool):
@@ -22,6 +23,7 @@ def test_update_file(content: str, expected: str, expected_updated: bool, requir
         "2023",
         re.compile(r" Copyright \(c\) (?P<year>[0-9]{4})"),
         re.compile(r" Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})"),
+        " Copyright (c) {year}",
         " Copyright (c) {from}-{to}",
         required=required,
     )

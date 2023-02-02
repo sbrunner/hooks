@@ -14,18 +14,18 @@ repos:
     hooks:
       - id: copyright
         name: Update copyright year
-        entry: pre-commit-copyright
+        entry: copyright-check
         language: python
         types:
           - text
       - id: workflows-require-timeout
         name: workflows require timeout
-        entry: pre-commit-workflow-timeout
+        entry: workflow-timeout-check
         files: ^\.github/workflows/.+\.ya?ml$
         language: python
       - id: poetry-check
         name: poetry check
-        entry: pre-commit-run-in-dir --cmd poetry check
+        entry: run-in-dir --cmd poetry check
         args:
           - --files
         language: python
@@ -34,7 +34,7 @@ repos:
         files: ^(|.*/)pyproject\.toml$
       - id: poetry-lock
         name: poetry lock
-        entry: pre-commit-run-in-dir --cmd poetry lock
+        entry: run-in-dir --cmd poetry lock
         args:
           - -a--no-update
           - --files
@@ -44,7 +44,7 @@ repos:
         files: ^(|.*/)pyproject\.toml$
       - id: pipenv-lock
         name: pipenv lock
-        entry: pre-commit-run-in-dir --cmd pipenv lock
+        entry: run-in-dir --cmd pipenv lock
         args:
           - -a--keep-outdated
           - --files
@@ -54,7 +54,7 @@ repos:
         files: ^(|.*/)Pipfile$
       - id: helm-lock
         name: helm lock
-        entry: pre-commit-run-in-dir --cmd helm dependency update
+        entry: run-in-dir --cmd helm dependency update
         args:
           - --files
         language: python

@@ -35,6 +35,7 @@ def main() -> None:
     one_date_format = config.get("one_date_format", " Copyright (c) {year}")
     tow_date_format = config.get("tow_date_format", " Copyright (c) {from}-{to}")
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
+    license_file = config.get("license_file", "LICENSE")
 
     success = True
     no_git_log = False
@@ -48,24 +49,34 @@ def main() -> None:
             ).stdout
             if status_str:
                 used_year = CURRENT_YEAR
-
-            date_str = subprocess.run(  # nosec
-                ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],
-                check=True,
-                encoding="utf-8",
-                stdout=subprocess.PIPE,
-            ).stdout
-            if not date_str:
-                if args.verbose:
-                    print(f"No log found with git on '{file_name}'.")
-                else:
-                    if not no_git_log:
-                        print(f"No log found with git on '{file_name}' (the next messages will be hidden).")
-                        no_git_log = True
-                used_year = CURRENT_YEAR
             else:
-                used_year_match = year_re.search(date_str)
-                used_year = used_year_match.group("year")
+                if file_name == license_file:
+                    date_str = subprocess.run(  # nosec
+                        ["git", "log", "--pretty=format:%ci", "-1"],
+                        check=True,
+                        encoding="utf-8",
+                        stdout=subprocess.PIPE,
+                    ).stdout
+                else:
+                    date_str = subprocess.run(  # nosec
+                        ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],
+                        check=True,
+                        encoding="utf-8",
+                        stdout=subprocess.PIPE,
+                    ).stdout
+                if not date_str:
+                    if args.verbose:
+                        print(f"No log found with git on '{file_name}'.")
+                    else:
+                        if not no_git_log:
+                            print(
+                                f"No log found with git on '{file_name}' (the next messages will be hidden)."
+                            )
+                            no_git_log = True
+                    used_year = CURRENT_YEAR
+                else:
+                    used_year_match = year_re.search(date_str)
+                    used_year = used_year_match.group("year")
         except FileNotFoundError:
             if not no_git_log:
                 print("No Git found.")

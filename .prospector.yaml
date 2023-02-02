@@ -7,6 +7,8 @@ pylint:
     - too-many-arguments
     - too-many-statements
     - too-many-locals
+    - too-many-branches
+    - too-many-nested-blocks
 
 pycodestyle:
   disable:

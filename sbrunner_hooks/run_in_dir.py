@@ -8,7 +8,6 @@ import sys
 
 def main() -> None:
     """Run a command in files folder."""
-
     parser = argparse.ArgumentParser(
         description="""Run a command in files folder.
 

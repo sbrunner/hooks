@@ -61,7 +61,7 @@ repos:
         language: python
         files: ^(|.*/)Chart\.yaml$
   - repo: https://github.com/pre-commit/pre-commit
-    rev: v3.0.4
+    rev: v3.1.1
     hooks:
       - id: validate_manifest
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -90,7 +90,7 @@ repos:
     hooks:
       - id: docformatter
   - repo: https://github.com/PyCQA/prospector
-    rev: v1.8.4
+    rev: v1.9.0
     hooks:
       - id: prospector
         args: [--tool=pydocstyle, --die-on-tool-error]

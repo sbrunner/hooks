@@ -7,9 +7,14 @@ import os.path
 import re
 import subprocess  # nosec
 import sys
-from typing import Tuple
+from typing import TYPE_CHECKING, Tuple
 
 import yaml
+
+if TYPE_CHECKING:
+    StrPattern = re.Pattern[str]
+else:
+    StrPattern = re.Pattern
 
 CURRENT_YEAR = str(datetime.datetime.now().year)
 
@@ -76,6 +81,7 @@ def main() -> None:
                     used_year = CURRENT_YEAR
                 else:
                     used_year_match = year_re.search(date_str)
+                    assert used_year_match is not None  # nosec
                     used_year = used_year_match.group("year")
         except FileNotFoundError:
             if not no_git_log:
@@ -111,8 +117,8 @@ def main() -> None:
 def update_file(
     content: str,
     last_year: str,
-    one_date_re: re.Match,
-    tow_date_re: re.Match,
+    one_date_re: StrPattern,
+    tow_date_re: StrPattern,
     one_date_format: str,
     tow_date_format: str,
     filename: str = "<unknown>",

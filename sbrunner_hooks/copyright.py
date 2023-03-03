@@ -124,19 +124,27 @@ def update_file(
     filename: str = "<unknown>",
     required: bool = False,
     verbose: bool = False,
+    current_year: str = CURRENT_YEAR,
 ) -> Tuple[bool, str]:
     """Update the copyright header of the file content."""
     tow_date_match = tow_date_re.search(content)
     if tow_date_match:
+        if tow_date_match.group("from") == tow_date_match.group("to"):
+            if tow_date_match.group("from") == current_year:
+                return False, tow_date_re.sub(one_date_format.format(**{"year": current_year}), content)
+            return (
+                False,
+                tow_date_re.sub(
+                    tow_date_format.format(**{"from": tow_date_match.group("from"), "to": current_year}),
+                    content,
+                ),
+            )
+
         if tow_date_match.group("to") == last_year:
-            if tow_date_match.group("from") == tow_date_match.group("to"):
-                return False, tow_date_re.sub(
-                    one_date_format.format(**{"year": tow_date_match.group("from")}), content
-                )
             return True, content
 
         return False, tow_date_re.sub(
-            tow_date_format.format(**{"from": tow_date_match.group("from"), "to": CURRENT_YEAR}), content
+            tow_date_format.format(**{"from": tow_date_match.group("from"), "to": current_year}), content
         )
 
     one_date_match = one_date_re.search(content)
@@ -147,7 +155,7 @@ def update_file(
             return True, content
 
         return False, one_date_re.sub(
-            tow_date_format.format(**{"from": copyright_year, "to": CURRENT_YEAR}), content
+            tow_date_format.format(**{"from": copyright_year, "to": current_year}), content
         )
 
     if required or verbose:

@@ -9,6 +9,7 @@ pylint:
     - too-many-locals
     - too-many-branches
     - too-many-nested-blocks
+    - too-many-return-statements
 
 pycodestyle:
   disable:

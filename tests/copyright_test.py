@@ -10,22 +10,24 @@ from sbrunner_hooks.copyright import update_file
     [
         ("toto", "toto", True, False),
         ("toto", "toto", False, True),
-        ("# Copyright (c) 2023\ntoto", "# Copyright (c) 2023\ntoto", True, False),
-        ("# Copyright (c) 2022\ntoto", "# Copyright (c) 2022-2023\ntoto", False, False),
-        ("# Copyright (c) 2022-2023\ntoto", "# Copyright (c) 2022-2023\ntoto", True, False),
-        ("# Copyright (c) 2021-2022\ntoto", "# Copyright (c) 2021-2023\ntoto", False, False),
-        ("# Copyright (c) 2023-2023\ntoto", "# Copyright (c) 2023\ntoto", False, False),
+        ("# Test (c) 2023\ntoto", "# Test (c) 2023\ntoto", True, False),
+        ("# Test (c) 2022\ntoto", "# Test (c) 2022-2024\ntoto", False, False),
+        ("# Test (c) 2022-2023\ntoto", "# Test (c) 2022-2023\ntoto", True, False),
+        ("# Test (c) 2021-2022\ntoto", "# Test (c) 2021-2024\ntoto", False, False),
+        ("# Test (c) 2024-2024\ntoto", "# Test (c) 2024\ntoto", False, False),
+        ("# Test (c) 2023-2023\ntoto", "# Test (c) 2023-2024\ntoto", False, False),
     ],
 )
 def test_update_file(content: str, expected: str, expected_updated: bool, required: bool):
     updated, content = update_file(
         content,
         "2023",
-        re.compile(r" Copyright \(c\) (?P<year>[0-9]{4})"),
-        re.compile(r" Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})"),
-        " Copyright (c) {year}",
-        " Copyright (c) {from}-{to}",
+        re.compile(r" Test \(c\) (?P<year>[0-9]{4})"),
+        re.compile(r" Test \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})"),
+        " Test (c) {year}",
+        " Test (c) {from}-{to}",
         required=required,
+        current_year="2024",
     )
 
     assert updated == expected_updated

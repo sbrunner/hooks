@@ -39,6 +39,8 @@ jobs:
             pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
             pre-commit-
       - run: pre-commit run --all-files
+        env:
+          SKIP: poetry-lock,pipenv-lock,helm-lock
       - run: git diff
         if: failure()
 

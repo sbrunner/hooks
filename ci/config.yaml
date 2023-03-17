@@ -3,3 +3,5 @@
 publish:
   helm:
     folders: []
+checks:
+  codespell: false

@@ -2,7 +2,7 @@ name: Changelog Generator
 
 on:
   schedule:
-    - cron: '0 0 * * 1'
+    - cron: 0 0 * * 1
   push:
     tags:
       - '*.*.*'
@@ -21,6 +21,8 @@ jobs:
             gh release create ${{ env.GITHUB_REF_NAME }}
           fi
         if: env.GITHUB_REF_TYPE == 'tag'
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Get Date
         id: get-date

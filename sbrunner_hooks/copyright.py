@@ -34,11 +34,11 @@ def main() -> None:
             config = yaml.load(config_file, Loader=yaml.SafeLoader)
 
     one_date_re = re.compile(config.get("one_date_re", r" Copyright \(c\) (?P<year>[0-9]{4})"))
-    tow_date_re = re.compile(
-        config.get("tow_date_re", r" Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")
+    two_date_re = re.compile(
+        config.get("two_date_re", r" Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")
     )
     one_date_format = config.get("one_date_format", " Copyright (c) {year}")
-    tow_date_format = config.get("tow_date_format", " Copyright (c) {from}-{to}")
+    two_date_format = config.get("two_date_format", " Copyright (c) {from}-{to}")
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
     license_file = config.get("license_file", "LICENSE")
 
@@ -98,9 +98,9 @@ def main() -> None:
                 content,
                 used_year,
                 one_date_re,
-                tow_date_re,
+                two_date_re,
                 one_date_format,
-                tow_date_format,
+                two_date_format,
                 file_name,
                 args.required,
                 args.verbose,
@@ -118,33 +118,33 @@ def update_file(
     content: str,
     last_year: str,
     one_date_re: StrPattern,
-    tow_date_re: StrPattern,
+    two_date_re: StrPattern,
     one_date_format: str,
-    tow_date_format: str,
+    two_date_format: str,
     filename: str = "<unknown>",
     required: bool = False,
     verbose: bool = False,
     current_year: str = CURRENT_YEAR,
 ) -> Tuple[bool, str]:
     """Update the copyright header of the file content."""
-    tow_date_match = tow_date_re.search(content)
-    if tow_date_match:
-        if tow_date_match.group("from") == tow_date_match.group("to"):
-            if tow_date_match.group("from") == current_year:
-                return False, tow_date_re.sub(one_date_format.format(**{"year": current_year}), content)
+    two_date_match = two_date_re.search(content)
+    if two_date_match:
+        if two_date_match.group("from") == two_date_match.group("to"):
+            if two_date_match.group("from") == current_year:
+                return False, two_date_re.sub(one_date_format.format(**{"year": current_year}), content)
             return (
                 False,
-                tow_date_re.sub(
-                    tow_date_format.format(**{"from": tow_date_match.group("from"), "to": current_year}),
+                two_date_re.sub(
+                    two_date_format.format(**{"from": two_date_match.group("from"), "to": current_year}),
                     content,
                 ),
             )
 
-        if tow_date_match.group("to") == last_year:
+        if two_date_match.group("to") == last_year:
             return True, content
 
-        return False, tow_date_re.sub(
-            tow_date_format.format(**{"from": tow_date_match.group("from"), "to": current_year}), content
+        return False, two_date_re.sub(
+            two_date_format.format(**{"from": two_date_match.group("from"), "to": current_year}), content
         )
 
     one_date_match = one_date_re.search(content)
@@ -155,7 +155,7 @@ def update_file(
             return True, content
 
         return False, one_date_re.sub(
-            tow_date_format.format(**{"from": copyright_year, "to": current_year}), content
+            two_date_format.format(**{"from": copyright_year, "to": current_year}), content
         )
 
     if required or verbose:

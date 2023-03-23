@@ -41,7 +41,7 @@ jobs:
       - run: pre-commit run --all-files
         env:
           SKIP: poetry-lock,pipenv-lock,helm-lock
-      - run: git diff
+      - run: git diff && false
         if: failure()
 
   build:

@@ -9,7 +9,6 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 warn_return_any = true
 strict = true
-plugins = ["numpy.typing.mypy_plugin"]
 
 [tool.poetry]
 name = "sbrunner-hooks"

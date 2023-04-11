@@ -58,3 +58,11 @@
     - --files
   language: python
   files: ^(|.*/)Chart\.yaml$
+- id: npm-lock
+  name: npm lock
+  description: Lock the npm package from the package.json file
+  entry: run-in-dir --cmd npm install
+  args:
+    - --files
+  language: python
+  files: ^(|.*/)package\.json$

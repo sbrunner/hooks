@@ -40,6 +40,7 @@ repos:
           - pipenv==<version>
       # Do Helm lock (helm should be installed)
       - id: helm-lock
+      - id: npm-lock
 ```
 
 ## Copyright configuration

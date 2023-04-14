@@ -10,7 +10,7 @@ ci:
     - pipenv-lock
     - helm-lock
     - ripsecrets
-
+    - jsonschema-validator
 repos:
   - repo: local
     hooks:
@@ -167,3 +167,11 @@ repos:
     rev: v0.1.5
     hooks:
       - id: ripsecrets
+  - repo: https://github.com/sbrunner/jsonschema-validator
+    rev: 0.1.0
+    hooks:
+      - id: jsonschema-validator
+        files: |-
+          (?x)^(
+              ci/config\.yaml
+          )$

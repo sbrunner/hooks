@@ -96,6 +96,8 @@ repos:
     hooks:
       - id: prospector
         args: [--tool=pydocstyle, --die-on-tool-error]
+        additional_dependencies:
+          - prospector-profile-duplicated==0.1.0 # pypi
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.1.1
     hooks:

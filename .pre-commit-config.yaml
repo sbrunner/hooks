@@ -99,7 +99,7 @@ repos:
         additional_dependencies:
           - prospector-profile-duplicated==0.1.0 # pypi
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.1.1
+    rev: v2.2.0
     hooks:
       - id: autoflake
   - repo: https://github.com/codespell-project/codespell
@@ -110,7 +110,7 @@ repos:
           - --ignore-words=.github/spell-ignore-words.txt
         exclude: ^poetry.lock$
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.4.1
+    rev: v3.8.0
     hooks:
       - id: pyupgrade
         args: [--py38-plus]

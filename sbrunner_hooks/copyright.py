@@ -7,7 +7,7 @@ import os.path
 import re
 import subprocess  # nosec
 import sys
-from typing import TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING
 
 import yaml
 
@@ -125,7 +125,7 @@ def update_file(
     required: bool = False,
     verbose: bool = False,
     current_year: str = CURRENT_YEAR,
-) -> Tuple[bool, str]:
+) -> tuple[bool, str]:
     """Update the copyright header of the file content."""
     two_date_match = two_date_re.search(content)
     if two_date_match:

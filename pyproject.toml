@@ -1,9 +1,9 @@
 [tool.black]
 line-length = 110
-target-version = ["py38"]
+target-version = ["py39"]
 
 [tool.mypy]
-python_version = 3.8
+python_version = 3.9
 ignore_missing_imports = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -24,9 +24,6 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Typing :: Typed",
 ]
 authors = ["Stéphane Brunner <stephane.brunner@gmail.com>"]
@@ -38,7 +35,7 @@ workflow-timeout-check = "sbrunner_hooks.workflow_timeout:main"
 run-in-dir = "sbrunner_hooks.run_in_dir:main"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.9,<4.0"
 PyYAML = "6.0.1"
 
 [tool.poetry.dev-dependencies]

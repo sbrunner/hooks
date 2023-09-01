@@ -44,7 +44,7 @@ pytest = "7.4.0"
 types-PyYAML = "6.0.12.11"
 
 [tool.poetry.group.dev.dependencies]
-prospector-profile-duplicated = "0.1.0"
+prospector-profile-duplicated = "0.3.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version"]

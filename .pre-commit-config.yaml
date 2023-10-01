@@ -129,7 +129,7 @@ repos:
               |\.gitignore
           )$
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.5
+    rev: v0.9.0.6
     hooks:
       - id: shellcheck
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
@@ -153,7 +153,7 @@ repos:
           - --builtin-schema
           - github-workflows-require-timeout
   - repo: https://github.com/sirwart/ripsecrets.git
-    rev: v0.1.6
+    rev: v0.1.7
     hooks:
       - id: ripsecrets
   - repo: https://github.com/sbrunner/hooks
@@ -172,7 +172,7 @@ repos:
           - pipenv==2022.12.19 # pypi
       - id: helm-lock
   - repo: https://github.com/sirwart/ripsecrets
-    rev: v0.1.6
+    rev: v0.1.7
     hooks:
       - id: ripsecrets
   - repo: https://github.com/sbrunner/jsonschema-validator

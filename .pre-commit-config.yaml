@@ -62,7 +62,7 @@ repos:
         language: python
         files: ^(|.*/)Chart\.yaml$
   - repo: https://github.com/pre-commit/pre-commit
-    rev: v3.3.3
+    rev: v3.4.0
     hooks:
       - id: validate_manifest
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -80,7 +80,7 @@ repos:
       - id: mixed-line-ending
       - id: check-json
   - repo: https://github.com/psf/black
-    rev: 23.7.0
+    rev: 23.9.1
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/isort
@@ -110,7 +110,7 @@ repos:
           - --ignore-words=.github/spell-ignore-words.txt
         exclude: ^poetry.lock$
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.10.1
+    rev: v3.13.0
     hooks:
       - id: pyupgrade
         args:
@@ -137,7 +137,7 @@ repos:
     hooks:
       - id: git-check
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.26.3
+    rev: 0.27.0
     hooks:
       - id: check-github-workflows
       - id: check-renovate

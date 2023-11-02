@@ -92,7 +92,7 @@ repos:
     hooks:
       - id: docformatter
   - repo: https://github.com/PyCQA/prospector
-    rev: 1.10.2
+    rev: v1.10.3
     hooks:
       - id: prospector
         args: [--tool=pydocstyle, --die-on-tool-error]
@@ -103,7 +103,7 @@ repos:
     hooks:
       - id: autoflake
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.2.6
     hooks:
       - id: codespell
         args:
@@ -142,7 +142,7 @@ repos:
       - id: check-github-workflows
       - id: check-renovate
         additional_dependencies:
-          - pyjson5==1.6.2 # pypi
+          - pyjson5==1.6.4 # pypi
       - id: check-github-actions
       - id: check-jsonschema
         name: Check GitHub Workflows set timeout-minutes

@@ -67,7 +67,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: pip install --requirement=requirements.txt
+      - run: pip install --requirement=ci/requirements.txt
 
       - run: poetry install
       - name: Versions

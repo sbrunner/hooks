@@ -31,7 +31,7 @@
 - id: poetry-lock
   name: poetry lock
   description: Lock the from the pyproject.toml file
-  entry: run-in-dir --cmd poetry lock
+  entry: run-in-dir --check poetry check --cmd poetry lock
   args:
     - -a--no-update
     - --files

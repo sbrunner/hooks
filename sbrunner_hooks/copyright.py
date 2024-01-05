@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023, Stéphane Brunner
+# Copyright (c) 2022-2024, Stéphane Brunner
 """Update the copyright header of the files."""
 
 import argparse

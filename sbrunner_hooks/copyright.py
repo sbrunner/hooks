@@ -54,6 +54,8 @@ def main() -> None:
             ).stdout
             if status_str:
                 used_year = CURRENT_YEAR
+                if args.verbose:
+                    print(f"File '{file_name}' is not committed.")
             else:
                 if file_name == license_file:
                     date_str = subprocess.run(  # nosec
@@ -80,6 +82,8 @@ def main() -> None:
                             no_git_log = True
                     used_year = CURRENT_YEAR
                 else:
+                    if args.verbose:
+                        print(f"File '{file_name}' was committed on '{date_str}'.")
                     used_year_match = year_re.search(date_str)
                     assert used_year_match is not None  # nosec
                     used_year = used_year_match.group("year")

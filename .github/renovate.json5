@@ -60,8 +60,6 @@
       matchPackagePrefixes: ['poetry-'],
       groupName: 'Poetry',
       automerge: true,
-      separateMajorMinor: false,
-      separateMinorPatch: false,
     },
     /** Support the 4 parts of shellcheck-py version with a v prefix */
     {
@@ -73,8 +71,6 @@
       matchFileNames: ['.github/**', '.pre-commit-config.yaml', 'ci/**'],
       groupName: 'CI dependencies',
       automerge: true,
-      separateMajorMinor: false,
-      separateMinorPatch: false,
     },
   ],
 }

@@ -55,4 +55,10 @@ two_date_re: ' Copyright \\(c\\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")'
 one_date_format: ' Copyright (c) {year}")'
 two_date_format: ' Copyright (c) {from}-{to}")'
 license_file: LICENSE
+
+one_date_re: ' Copyright \(c\) (?P<year>[0-9]{4})'
+two_date_re: ' Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})'
+one_date_format: ' Copyright (c) {year}'
+two_date_format: ' Copyright (c) {from}-{to}'
+license_file: LICENSE
 ```

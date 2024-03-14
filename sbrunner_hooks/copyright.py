@@ -113,6 +113,8 @@ def main() -> None:
             success = False
             with open(file_name, "w", encoding="utf-8") as file_obj:
                 file_obj.write(content)
+            if args.verbose:
+                print(f"Copyright updated in '{file_name}'.")
 
     if not success:
         sys.exit(1)

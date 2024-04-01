@@ -62,7 +62,7 @@ repos:
         language: python
         files: ^(|.*/)Chart\.yaml$
   - repo: https://github.com/pre-commit/pre-commit
-    rev: v3.6.2
+    rev: v3.7.0
     hooks:
       - id: validate_manifest
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -80,7 +80,7 @@ repos:
       - id: mixed-line-ending
       - id: check-json
   - repo: https://github.com/psf/black
-    rev: 24.2.0
+    rev: 24.3.0
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/isort
@@ -97,7 +97,7 @@ repos:
       - id: prospector
         args: [--tool=pydocstyle, --die-on-tool-error]
         additional_dependencies:
-          - prospector-profile-duplicated==1.1.0 # pypi
+          - prospector-profile-duplicated==1.2.0 # pypi
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.3.1
     hooks:
@@ -129,7 +129,7 @@ repos:
               |\.gitignore
           )$
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.6
+    rev: v0.10.0.1
     hooks:
       - id: shellcheck
   - repo: https://github.com/jumanjihouse/pre-commit-hooks

@@ -32,7 +32,7 @@ repos:
           - --files
         language: python
         additional_dependencies:
-          - poetry==1.8.2 # pypi
+          - poetry==1.8.3 # pypi
         files: ^(|.*/)pyproject\.toml$
       - id: poetry-lock
         name: poetry lock
@@ -42,7 +42,7 @@ repos:
           - --files
         language: python
         additional_dependencies:
-          - poetry==1.8.2 # pypi
+          - poetry==1.8.3 # pypi
         files: ^(|.*/)pyproject\.toml$
       - id: pipenv-lock
         name: pipenv lock
@@ -62,7 +62,7 @@ repos:
         language: python
         files: ^(|.*/)Chart\.yaml$
   - repo: https://github.com/pre-commit/pre-commit
-    rev: v3.7.0
+    rev: v3.7.1
     hooks:
       - id: validate_manifest
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -137,7 +137,7 @@ repos:
     hooks:
       - id: git-check
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.2
+    rev: 0.28.4
     hooks:
       - id: check-github-workflows
       - id: check-renovate
@@ -163,10 +163,10 @@ repos:
       - id: workflows-require-timeout
       - id: poetry-check
         additional_dependencies:
-          - poetry==1.8.2 # pypi
+          - poetry==1.8.3 # pypi
       - id: poetry-lock
         additional_dependencies:
-          - poetry==1.8.2 # pypi
+          - poetry==1.8.3 # pypi
       - id: pipenv-lock
         additional_dependencies:
           - pipenv==2023.12.1 # pypi

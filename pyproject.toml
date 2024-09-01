@@ -36,12 +36,12 @@ run-in-dir = "sbrunner_hooks.run_in_dir:main"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
-PyYAML = "6.0.1"
+PyYAML = "6.0.2"
 
 [tool.poetry.dev-dependencies]
 prospector = { version = "1.10.3", extras = ["with_bandit", "with_mypy", "with_pyroma"] }
 pytest = "8.3.2"
-types-PyYAML = "6.0.12.20240724"
+types-PyYAML = "6.0.12.20240808"
 
 [tool.poetry.group.dev.dependencies]
 prospector-profile-duplicated = "1.5.0"

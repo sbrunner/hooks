@@ -1,16 +1,5 @@
 # https://pre-commit.com/hooks.html
 
-ci:
-  autoupdate_schedule: quarterly
-  skip:
-    - copyright
-    - workflows-require-timeout
-    - poetry-check
-    - poetry-lock
-    - pipenv-lock
-    - helm-lock
-    - ripsecrets
-    - jsonschema-validator
 repos:
   - repo: local
     hooks:
@@ -183,3 +172,7 @@ repos:
           (?x)^(
               ci/config\.yaml
           )$
+  - repo: https://github.com/renovatebot/pre-commit-hooks
+    rev: 37.428.1
+    hooks:
+      - id: renovate-config-validator

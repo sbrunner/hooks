@@ -33,12 +33,12 @@ def main() -> None:
         with open(args.config, encoding="utf-8") as config_file:
             config = yaml.load(config_file, Loader=yaml.SafeLoader)
 
-    one_date_re = re.compile(config.get("one_date_re", r" Copyright \(c\) (?P<year>[0-9]{4})"))
+    one_date_re = re.compile(config.get("one_date_re", r"\bCopyright \(c\) (?P<year>[0-9]{4})\b"))
     two_date_re = re.compile(
-        config.get("two_date_re", r" Copyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})")
+        config.get("two_date_re", r"\bCopyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})\b")
     )
-    one_date_format = config.get("one_date_format", " Copyright (c) {year}")
-    two_date_format = config.get("two_date_format", " Copyright (c) {from}-{to}")
+    one_date_format = config.get("one_date_format", "Copyright (c) {year}")
+    two_date_format = config.get("two_date_format", "Copyright (c) {from}-{to}")
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
     license_file = config.get("license_file", "LICENSE")
 

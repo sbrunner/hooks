@@ -61,7 +61,7 @@
 - id: npm-lock
   name: npm lock
   description: Lock the npm package from the package.json file
-  entry: run-in-dir --cmd npm install --package-lock-only
+  entry: run-in-dir --cmd npm install --package-lock-only --ignore-scripts
   args:
     - --files
   language: python

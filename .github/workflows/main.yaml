@@ -27,9 +27,8 @@ jobs:
         env:
           GITHUB_EVENT: ${{ toJson(github) }}
 
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
-      - run: pip install --user --requirement=ci/requirements-pre-commit.txt
-      - run: pip install --user --editable=.
+      - run: pip install --requirement=ci/requirements-pre-commit.txt
+      - run: pip install --editable=.
 
       - uses: actions/cache@v4
         with:
@@ -72,7 +71,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
       - run: pip install --requirement=ci/requirements.txt
 
       - run: poetry install
@@ -96,7 +94,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: echo "${HOME}/.local/bin" >> ${GITHUB_PATH}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: python3 -m pip install --requirement=ci/requirements.txt
 
       - name: Init pypi

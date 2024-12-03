@@ -68,25 +68,24 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
       - id: check-json
-  - repo: https://github.com/psf/black
-    rev: 24.10.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.1
     hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
+      - id: ruff-format
+        args:
+          - --line-length=110
   - repo: https://github.com/PyCQA/prospector
     rev: v1.13.3
     hooks:
       - id: prospector
-        args: [--tool=pydocstyle, --die-on-tool-error]
+        args:
+          - --tool=ruff
+          - --die-on-tool-error
+          - --output-format=pylint
         additional_dependencies:
           - prospector-profile-duplicated==1.8.0 # pypi
-  - repo: https://github.com/PyCQA/autoflake
-    rev: v2.3.1
-    hooks:
-      - id: autoflake
+          - prospector-profile-utils==1.13.0 # pypi
+          - ruff==0.8.1 # pypi
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
     hooks:
@@ -94,12 +93,6 @@ repos:
         args:
           - --ignore-words=.github/spell-ignore-words.txt
         exclude: ^poetry.lock$
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.0
-    hooks:
-      - id: pyupgrade
-        args:
-          - --py39-plus
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
     hooks:

@@ -51,11 +51,11 @@ repos:
         language: python
         files: ^(|.*/)Chart\.yaml$
   - repo: https://github.com/pre-commit/pre-commit
-    rev: v3.8.0
+    rev: v4.0.1
     hooks:
       - id: validate_manifest
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: detect-private-key
       - id: check-merge-conflict
@@ -76,10 +76,6 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-  - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.5
-    hooks:
-      - id: docformatter
   - repo: https://github.com/PyCQA/prospector
     rev: v1.13.3
     hooks:
@@ -173,6 +169,6 @@ repos:
               ci/config\.yaml
           )$
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 38.142.7
+    rev: 39.46.0
     hooks:
       - id: renovate-config-validator

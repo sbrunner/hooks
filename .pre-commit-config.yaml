@@ -76,10 +76,6 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-  - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.5
-    hooks:
-      - id: docformatter
   - repo: https://github.com/PyCQA/prospector
     rev: v1.13.3
     hooks:

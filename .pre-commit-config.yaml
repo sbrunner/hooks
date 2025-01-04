@@ -83,8 +83,8 @@ repos:
           - --die-on-tool-error
           - --output-format=pylint
         additional_dependencies:
-          - prospector-profile-duplicated==1.8.1 # pypi
-          - prospector-profile-utils==1.13.0 # pypi
+          - prospector-profile-duplicated==1.10.0 # pypi
+          - prospector-profile-utils==1.14.1 # pypi
           - ruff==0.8.4 # pypi
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
@@ -162,6 +162,6 @@ repos:
               ci/config\.yaml
           )$
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 39.46.1
+    rev: 39.86.3
     hooks:
       - id: renovate-config-validator

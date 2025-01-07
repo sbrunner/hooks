@@ -31,7 +31,16 @@ repos:
           - --files
         language: python
         additional_dependencies:
-          - poetry==1.8.5 # pypi
+          - poetry==1.8.5
+        files: ^(|.*/)pyproject\.toml$
+      - id: poetry2-lock
+        name: poetry lock
+        entry: run-in-dir --check poetry check --cmd poetry lock
+        args:
+          - --files
+        language: python
+        additional_dependencies:
+          - poetry==2.0.0 # pypi
         files: ^(|.*/)pyproject\.toml$
       - id: pipenv-lock
         name: pipenv lock

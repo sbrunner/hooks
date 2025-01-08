@@ -780,8 +780,6 @@ files = [
 ]
 
 [package.dependencies]
-astroid = ">=1.0"
-pylint = ">=1.0"
 pylint-plugin-utils = ">=0.2.1"
 
 [[package]]

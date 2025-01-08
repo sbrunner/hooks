@@ -108,9 +108,6 @@ repos:
     rev: 0.30.0
     hooks:
       - id: check-github-workflows
-      - id: check-renovate
-        additional_dependencies:
-          - pyjson5==1.6.7 # pypi
       - id: check-github-actions
       - id: check-jsonschema
         name: Check GitHub Workflows set timeout-minutes
@@ -129,9 +126,6 @@ repos:
     hooks:
       - id: copyright
       - id: workflows-require-timeout
-      - id: poetry-check
-        additional_dependencies:
-          - poetry==1.8.5 # pypi
       - id: poetry-lock
         additional_dependencies:
           - poetry==1.8.5 # pypi
@@ -149,9 +143,14 @@ repos:
       - id: jsonschema-validator
         files: |-
           (?x)^(
-              ci/config\.yaml
+            \.github/ghci\.yaml
+            |\.github/publish\.yaml
           )$
   - repo: https://github.com/renovatebot/pre-commit-hooks
     rev: 39.86.3
     hooks:
       - id: renovate-config-validator
+  - repo: https://github.com/sbrunner/python-versions-hook
+    rev: 0.8.0
+    hooks:
+      - id: python-versions

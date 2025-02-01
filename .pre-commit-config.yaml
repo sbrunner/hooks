@@ -21,7 +21,7 @@ repos:
           - --files
         language: python
         additional_dependencies:
-          - poetry==2.0.0 # pypi
+          - poetry==2.0.1 # pypi
         files: ^(|.*/)pyproject\.toml$
       - id: pipenv-lock
         name: pipenv lock
@@ -59,7 +59,7 @@ repos:
       - id: mixed-line-ending
       - id: check-json
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.4
+    rev: v0.8.6
     hooks:
       - id: ruff-format
         args:
@@ -73,9 +73,9 @@ repos:
           - --die-on-tool-error
           - --output-format=pylint
         additional_dependencies:
-          - prospector-profile-duplicated==1.10.0 # pypi
+          - prospector-profile-duplicated==1.10.4 # pypi
           - prospector-profile-utils==1.14.1 # pypi
-          - ruff==0.8.4 # pypi
+          - ruff==0.8.6 # pypi
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
     hooks:
@@ -131,7 +131,7 @@ repos:
           - poetry==1.8.5 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2024.4.0 # pypi
+          - pipenv==2024.4.1 # pypi
       - id: helm-lock
   - repo: https://github.com/sirwart/ripsecrets
     rev: v0.1.8

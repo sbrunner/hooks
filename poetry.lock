@@ -578,14 +578,14 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "prospector"
-version = "1.13.3"
+version = "1.14.0"
 description = "Prospector is a tool to analyse Python code by aggregating the result of other tools."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["dev"]
 files = [
-    {file = "prospector-1.13.3-py3-none-any.whl", hash = "sha256:e7261c222ba54bc8aef8c9e31b2dcf5ed2a656c9b76fc0cceab294cd5ec3db6b"},
-    {file = "prospector-1.13.3.tar.gz", hash = "sha256:36ccb13f69aa27c5c4682afd4cc46219b9e0c80723e30dc64ff30c71f7b877a1"},
+    {file = "prospector-1.14.0-py3-none-any.whl", hash = "sha256:18771ee32ed9a35111c3ebcfdac24c8ac77301b14cebfffccad7906a3d983ab8"},
+    {file = "prospector-1.14.0.tar.gz", hash = "sha256:de493172fc6027bef384cb450db48f6ea6bb6b3c9160e75f4ab4ecdf502518d1"},
 ]
 
 [package.dependencies]
@@ -633,14 +633,14 @@ files = [
 
 [[package]]
 name = "prospector-profile-utils"
-version = "1.14.1"
+version = "1.17.0"
 description = "Some utility Prospector profiles."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["dev"]
 files = [
-    {file = "prospector_profile_utils-1.14.1-py3-none-any.whl", hash = "sha256:1b7d79e4293c76f9ea5107b691c888e76933aa29d33e8f8b8750dc0aeea3b657"},
-    {file = "prospector_profile_utils-1.14.1.tar.gz", hash = "sha256:5447086f9a7ddba02d8ee7322baa30c80c1376328677a6593165fab23e2e4bf2"},
+    {file = "prospector_profile_utils-1.17.0-py3-none-any.whl", hash = "sha256:0cb7fe9dfca2b49c21733bbc4d3aabd51c7c0890c5e636b8d2f7b81c342aef6e"},
+    {file = "prospector_profile_utils-1.17.0.tar.gz", hash = "sha256:ac75faf9b13a6b6c18173cad71e6879e6ac40c5f5fda57c69f064b8a955705bd"},
 ]
 
 [package.dependencies]
@@ -1242,4 +1242,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "4dc4629c8e2948ed47bc5084c1a1d6b399ed8539af4fa38dec28f970527f51c3"
+content-hash = "da8fd3c0592ee832b9e80aef3e351c6c5b3f6fd1b7123df5e5391a2e4edbd62e"

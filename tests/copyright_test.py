@@ -6,7 +6,7 @@ from sbrunner_hooks.copyright import update_file
 
 
 @pytest.mark.parametrize(
-    "content,expected,expected_updated,required",
+    ("content", "expected", "expected_updated", "required"),
     [
         ("toto", "toto", True, False),
         ("toto", "toto", False, True),

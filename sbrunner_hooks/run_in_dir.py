@@ -17,7 +17,7 @@ def main() -> None:
     will be transform in:
     cmd arg1 arg2 -arg --arg  file1
     (cd dir && cmd arg1 arg2 -arg --arg file2
-    """
+    """,
     )
     parser.add_argument("--fail-fast", action="store_true", help="Fail on the first error")
     parser.add_argument("--pass-filename", action="store_true", help="Pass the filename to the command")
@@ -35,7 +35,7 @@ def main() -> None:
             filename = os.path.join(os.getcwd(), filename)
             proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
                 [*args.check, os.path.basename(filename)] if args.pass_filename else args.check,
-                cwd=os.path.dirname(filename),
+                cwd=os.path.dirname(filename), check=False,
             )
             if proc.returncode != 0:
                 if args.fail_fast:
@@ -48,7 +48,7 @@ def main() -> None:
                 filename = os.path.join(os.getcwd(), filename)
                 proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
                     [*command, os.path.basename(filename)] if args.pass_filename else command,
-                    cwd=os.path.dirname(filename),
+                    cwd=os.path.dirname(filename), check=False,
                 )
                 if proc.returncode != 0:
                     if args.fail_fast:

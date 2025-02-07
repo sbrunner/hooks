@@ -1,8 +1,8 @@
 """Check that the GitHub workflow has a timeout."""
 
 import argparse
-import glob
 import sys
+from pathlib import Path
 
 import yaml
 
@@ -14,12 +14,14 @@ def main() -> None:
     args = parser.parse_args()
 
     success = True
-    files = args.files
+    files = [Path(filename) for filename in args.files]
     if not files:
-        files = glob.glob(".github/workflows/*.yaml")
-        files += glob.glob(".github/workflows/*.yml")
+        files = [
+            *Path(".").glob("github/workflows/*.yaml"),  # noqa: PTH201
+            *Path().glob("github/workflows/*.yml"),
+        ]
     for filename in files:
-        with open(filename, encoding="utf-8") as open_file:
+        with filename.open(encoding="utf-8") as open_file:
             workflow = yaml.load(open_file, Loader=yaml.SafeLoader)
 
         for name, job in workflow.get("jobs").items():

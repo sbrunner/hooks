@@ -1,9 +1,9 @@
 """Run a command in files folder."""
 
 import argparse
-import os.path
 import subprocess  # nosec
 import sys
+from pathlib import Path
 
 
 def main() -> None:
@@ -29,13 +29,13 @@ def main() -> None:
 
     command = [*args.cmd, *args.arg]
     success = True
-    for filename in args.files:
+    for file_path in [Path(filename) for filename in args.files]:
+        file_path = Path.cwd() / file_path  # noqa: PLW2901
         check_success = True
         if args.check:
-            filename = os.path.join(os.getcwd(), filename)
             proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
-                [*args.check, os.path.basename(filename)] if args.pass_filename else args.check,
-                cwd=os.path.dirname(filename),
+                args.check,
+                cwd=file_path.parent,
                 check=False,
             )
             if proc.returncode != 0:
@@ -45,17 +45,15 @@ def main() -> None:
         else:
             check_success = False
         if not check_success:
-            for filename in args.files:
-                filename = os.path.join(os.getcwd(), filename)
-                proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
-                    [*command, os.path.basename(filename)] if args.pass_filename else command,
-                    cwd=os.path.dirname(filename),
-                    check=False,
-                )
-                if proc.returncode != 0:
-                    if args.fail_fast:
-                        sys.exit(proc.returncode)
-                    success = False
+            proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
+                [*command, file_path.name] if args.pass_filename else command,
+                cwd=file_path.parent,
+                check=False,
+            )
+            if proc.returncode != 0:
+                if args.fail_fast:
+                    sys.exit(proc.returncode)
+                success = False
     if not success:
         sys.exit(1)
 

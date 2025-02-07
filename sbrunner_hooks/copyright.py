@@ -3,10 +3,11 @@
 
 import argparse
 import datetime
-import os.path
 import re
 import subprocess  # nosec
 import sys
+from datetime import timezone
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 import yaml
@@ -16,7 +17,7 @@ if TYPE_CHECKING:
 else:
     StrPattern = re.Pattern
 
-CURRENT_YEAR = str(datetime.datetime.now().year)
+CURRENT_YEAR = str(datetime.datetime.now(timezone.utc).year)
 
 
 def main() -> None:
@@ -29,8 +30,9 @@ def main() -> None:
     args = args_parser.parse_args()
 
     config = {}
-    if os.path.exists(args.config):
-        with open(args.config, encoding="utf-8") as config_file:
+    config_path = Path(args.config)
+    if config_path.exists():
+        with config_path.open(encoding="utf-8") as config_file:
             config = yaml.load(config_file, Loader=yaml.SafeLoader)
 
     one_date_re = re.compile(config.get("one_date_re", r"\bCopyright \(c\) (?P<year>[0-9]{4})\b"))
@@ -95,7 +97,7 @@ def main() -> None:
             print(f"Error with Git on '{file_name}' ({error!s}).")
             used_year = CURRENT_YEAR
 
-        with open(file_name, encoding="utf-8") as file_obj:
+        with Path(file_name).open(encoding="utf-8") as file_obj:
             content = file_obj.read()
             file_success, content = update_file(
                 content,
@@ -110,7 +112,7 @@ def main() -> None:
             )
         if not file_success:
             success = False
-            with open(file_name, "w", encoding="utf-8") as file_obj:
+            with Path(file_name).open("w", encoding="utf-8") as file_obj:
                 file_obj.write(content)
             if args.verbose:
                 print(f"Copyright updated in '{file_name}'.")

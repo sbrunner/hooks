@@ -149,7 +149,8 @@ def update_file(
             return True, content
 
         return False, two_date_re.sub(
-            two_date_format.format(**{"from": two_date_match.group("from"), "to": current_year}), content,
+            two_date_format.format(**{"from": two_date_match.group("from"), "to": current_year}),
+            content,
         )
 
     one_date_match = one_date_re.search(content)
@@ -160,7 +161,8 @@ def update_file(
             return True, content
 
         return False, one_date_re.sub(
-            two_date_format.format(**{"from": copyright_year, "to": current_year}), content,
+            two_date_format.format(**{"from": copyright_year, "to": current_year}),
+            content,
         )
 
     if required or verbose:

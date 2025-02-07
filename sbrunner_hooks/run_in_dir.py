@@ -35,7 +35,8 @@ def main() -> None:
             filename = os.path.join(os.getcwd(), filename)
             proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
                 [*args.check, os.path.basename(filename)] if args.pass_filename else args.check,
-                cwd=os.path.dirname(filename), check=False,
+                cwd=os.path.dirname(filename),
+                check=False,
             )
             if proc.returncode != 0:
                 if args.fail_fast:
@@ -48,7 +49,8 @@ def main() -> None:
                 filename = os.path.join(os.getcwd(), filename)
                 proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
                     [*command, os.path.basename(filename)] if args.pass_filename else command,
-                    cwd=os.path.dirname(filename), check=False,
+                    cwd=os.path.dirname(filename),
+                    check=False,
                 )
                 if proc.returncode != 0:
                     if args.fail_fast:

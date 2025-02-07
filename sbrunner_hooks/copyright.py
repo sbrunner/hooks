@@ -3,10 +3,11 @@
 
 import argparse
 import datetime
-import os.path
 import re
 import subprocess  # nosec
 import sys
+from datetime import timezone
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 import yaml
@@ -16,7 +17,7 @@ if TYPE_CHECKING:
 else:
     StrPattern = re.Pattern
 
-CURRENT_YEAR = str(datetime.datetime.now().year)
+CURRENT_YEAR = str(datetime.datetime.now(timezone.utc).year)
 
 
 def main() -> None:
@@ -29,13 +30,14 @@ def main() -> None:
     args = args_parser.parse_args()
 
     config = {}
-    if os.path.exists(args.config):
-        with open(args.config, encoding="utf-8") as config_file:
+    config_path = Path(args.config)
+    if config_path.exists():
+        with config_path.open(encoding="utf-8") as config_file:
             config = yaml.load(config_file, Loader=yaml.SafeLoader)
 
     one_date_re = re.compile(config.get("one_date_re", r"\bCopyright \(c\) (?P<year>[0-9]{4})\b"))
     two_date_re = re.compile(
-        config.get("two_date_re", r"\bCopyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})\b")
+        config.get("two_date_re", r"\bCopyright \(c\) (?P<from>[0-9]{4})-(?P<to>[0-9]{4})\b"),
     )
     one_date_format = config.get("one_date_format", "Copyright (c) {year}")
     two_date_format = config.get("two_date_format", "Copyright (c) {from}-{to}")
@@ -74,12 +76,11 @@ def main() -> None:
                 if not date_str:
                     if args.verbose:
                         print(f"No log found with git on '{file_name}'.")
-                    else:
-                        if not no_git_log:
-                            print(
-                                f"No log found with git on '{file_name}' (the next messages will be hidden)."
-                            )
-                            no_git_log = True
+                    elif not no_git_log:
+                        print(
+                            f"No log found with git on '{file_name}' (the next messages will be hidden).",
+                        )
+                        no_git_log = True
                     used_year = CURRENT_YEAR
                 else:
                     if args.verbose:
@@ -93,10 +94,10 @@ def main() -> None:
                 no_git_log = True
             used_year = CURRENT_YEAR
         except subprocess.CalledProcessError as error:
-            print(f"Error with Git on '{file_name}' ({str(error)}).")
+            print(f"Error with Git on '{file_name}' ({error!s}).")
             used_year = CURRENT_YEAR
 
-        with open(file_name, encoding="utf-8") as file_obj:
+        with Path(file_name).open(encoding="utf-8") as file_obj:
             content = file_obj.read()
             file_success, content = update_file(
                 content,
@@ -111,7 +112,7 @@ def main() -> None:
             )
         if not file_success:
             success = False
-            with open(file_name, "w", encoding="utf-8") as file_obj:
+            with Path(file_name).open("w", encoding="utf-8") as file_obj:
                 file_obj.write(content)
             if args.verbose:
                 print(f"Copyright updated in '{file_name}'.")
@@ -137,7 +138,7 @@ def update_file(
     if two_date_match:
         if two_date_match.group("from") == two_date_match.group("to"):
             if two_date_match.group("from") == current_year:
-                return False, two_date_re.sub(one_date_format.format(**{"year": current_year}), content)
+                return False, two_date_re.sub(one_date_format.format(year=current_year), content)
             return (
                 False,
                 two_date_re.sub(
@@ -150,7 +151,8 @@ def update_file(
             return True, content
 
         return False, two_date_re.sub(
-            two_date_format.format(**{"from": two_date_match.group("from"), "to": current_year}), content
+            two_date_format.format(**{"from": two_date_match.group("from"), "to": current_year}),
+            content,
         )
 
     one_date_match = one_date_re.search(content)
@@ -161,7 +163,8 @@ def update_file(
             return True, content
 
         return False, one_date_re.sub(
-            two_date_format.format(**{"from": copyright_year, "to": current_year}), content
+            two_date_format.format(**{"from": copyright_year, "to": current_year}),
+            content,
         )
 
     if required or verbose:

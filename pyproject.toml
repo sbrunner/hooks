@@ -1,3 +1,10 @@
+[tool.ruff]
+target-version = "py39"
+line-length = 110
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
 [tool.poetry]
 name = "sbrunner-hooks"
 version = "0.0.0"
@@ -26,10 +33,13 @@ repository = "https://github.com/sbrunner/hooks"
 copyright-check = "sbrunner_hooks.copyright:main"
 workflow-timeout-check = "sbrunner_hooks.workflow_timeout:main"
 run-in-dir = "sbrunner_hooks.run_in_dir:main"
+sbrunner-canonicalize = "sbrunner_hooks.canonicalize:main"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 PyYAML = "6.0.2"
+ruamel-yaml = "0.18.10"
+multi-repo-automation = "1.7.0"
 
 [tool.poetry.group.dev.dependencies]
 prospector = { version = "1.14.1", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
@@ -37,17 +47,6 @@ prospector-profile-utils = "1.20.2"
 prospector-profile-duplicated = "1.10.4"
 pytest = "8.3.4"
 types-PyYAML = "6.0.12.20241230"
-
-
-[tool.ruff]
-target-version = "py39"
-line-length = 110
-
-[tool.ruff.lint.pydocstyle]
-convention = "numpy"
-[build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry-plugin-drop-python-upper-constraint"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.poetry-dynamic-versioning]
 enable = true
@@ -67,3 +66,7 @@ format-jinja = """
 
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "present"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry-plugin-drop-python-upper-constraint"]
+build-backend = "poetry.core.masonry.api"

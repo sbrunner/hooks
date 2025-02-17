@@ -40,6 +40,16 @@ repos:
           - --files
         language: python
         files: ^(|.*/)Chart\.yaml$
+      - id: canonicalize
+        name: canonicalize files
+        entry: sbrunner-canonicalize
+        language: python
+        files: |-
+          (?x)^(
+            \.github/workflows/[^/]+\.ya?ml
+            |(|.*/)\.?prospector(-.*)?\.ya?ml
+            |(|.*/)pyproject\.toml
+          )$
   - repo: https://github.com/pre-commit/pre-commit
     rev: v4.1.0
     hooks:

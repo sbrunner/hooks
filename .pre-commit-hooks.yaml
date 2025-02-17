@@ -78,3 +78,14 @@
     - --files
   language: python
   files: ^(|.*/)package\.json$
+- id: canonicalize
+  name: canonicalize files
+  description: Canonicalize the files
+  entry: sbrunner-canonicalize
+  language: python
+  files: |-
+    (?x)^(
+      \.github/workflows/[^/]+\.ya?ml
+      |(|.*/)\.?prospector(-.*)?\.ya?ml
+      |(|.*/)pyproject\.toml
+    )$

@@ -47,8 +47,10 @@ repos:
         files: |-
           (?x)^(
             \.github/workflows/[^/]+\.ya?ml
-            |(|.*/)\.?prospector(-.*)?\.ya?ml
-            |(|.*/)pyproject\.toml
+            |(
+            |.*/)\.?prospector(-.*)?\.ya?ml
+            |(
+            |.*/)pyproject\.toml
           )$
   - repo: https://github.com/pre-commit/pre-commit
     rev: v4.1.0
@@ -79,11 +81,10 @@ repos:
     hooks:
       - id: prospector
         args:
-          - --tool=ruff
+          - --profile=utils:pre-commit
           - --die-on-tool-error
           - --output-format=pylint
           - --profile=.prospector.yaml
-          - --profile=utils:autofix
         additional_dependencies:
           - prospector-profile-duplicated==1.10.4 # pypi
           - prospector-profile-utils==1.21.7 # pypi
@@ -93,7 +94,7 @@ repos:
           - --die-on-tool-error
           - --output-format=pylint
           - --profile=utils:tests
-          - --profile=utils:autofix
+          - --profile=utils:pre-commit
         additional_dependencies:
           - prospector-profile-utils==1.21.7 # pypi
           - ruff==0.9.9 # pypi
@@ -154,6 +155,7 @@ repos:
         additional_dependencies:
           - pipenv==2024.4.1 # pypi
       - id: helm-lock
+      - id: canonicalize
   - repo: https://github.com/sirwart/ripsecrets
     rev: v0.1.8
     hooks:

@@ -51,6 +51,7 @@ repos:
             |.*/)\.?prospector(-.*)?\.ya?ml
             |(
             |.*/)pyproject\.toml
+            |(|.*/).pre-commit-config\.ya?ml
           )$
   - repo: https://github.com/pre-commit/pre-commit
     rev: v4.1.0
@@ -124,8 +125,8 @@ repos:
           - prettier-plugin-toml@2.0.2 # npm
         exclude: |-
           (?x)^(
-              \.gitattributes
-              |\.gitignore
+            \.gitattributes
+            |\.gitignore
           )$
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1

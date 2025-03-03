@@ -88,4 +88,5 @@
       \.github/workflows/[^/]+\.ya?ml
       |(|.*/)\.?prospector(-.*)?\.ya?ml
       |(|.*/)pyproject\.toml
+      |(|.*/).pre-commit-config\.ya?ml
     )$

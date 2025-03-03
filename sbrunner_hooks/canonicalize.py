@@ -2,6 +2,7 @@
 
 import argparse
 import io
+import re
 from pathlib import Path
 from typing import Any, AnyStr, Optional, Union
 
@@ -132,6 +133,69 @@ def _canonicalize_prospector(prospector: mra.EditYAML) -> None:
     )
 
 
+def _split_pipe(exclude: str) -> list[str]:
+    result = []
+    in_parent = False
+    file = ""
+
+    for char in exclude:
+        if char == "(":
+            in_parent = True
+        elif char == ")":
+            in_parent = False
+        elif char == "|" and not in_parent:
+            result.append(file.strip())
+            file = ""
+        file += char
+
+    result.append(file.strip())
+    return result
+
+
+_CLEAN_ENDLINE_RE = re.compile(r"\s*\n\s*")
+_GET_START_END_RE = re.compile(r"([^(]*\()(.*)(\)[^)]*)")
+
+
+def _canonicalize_pre_commit_exclude(exclude: str) -> Optional[ruamel.yaml.scalarstring.LiteralScalarString]:
+    exclude = exclude.strip()
+    if not exclude.startswith("(?x)"):
+        return None
+    exclude = exclude[4:]
+    exclude = exclude.strip()
+    exclude = _CLEAN_ENDLINE_RE.sub("", exclude)
+    get_intro_end_match = _GET_START_END_RE.match(exclude)
+    if get_intro_end_match is None:
+        return None
+    start, exclude, end = get_intro_end_match.groups()
+
+    files = _split_pipe(exclude)
+
+    return ruamel.yaml.scalarstring.LiteralScalarString(
+        "\n".join(
+            [
+                f"(?x){start}",
+                *[f"  {file}" for file in files],
+                end,
+            ],
+        ),
+    )
+
+
+def _canonicalize_pre_commit(pre_commit_path: Path) -> None:
+    with mra.EditYAML(pre_commit_path) as pre_commit_config:
+        if "exclude" in pre_commit_config:
+            exclude = _canonicalize_pre_commit_exclude(pre_commit_config["exclude"])
+            if exclude is not None:
+                pre_commit_config["exclude"] = exclude
+
+        for repo in pre_commit_config["repos"]:
+            for hook in repo["hooks"]:
+                if "exclude" in hook:
+                    exclude = _canonicalize_pre_commit_exclude(hook["exclude"])
+                    if exclude is not None:
+                        hook["exclude"] = exclude
+
+
 def _canonicalize_pyproject(path: Path) -> None:
     with path.open() as f:
         doc = tomlkit.parse(f.read())
@@ -208,6 +272,10 @@ def main() -> None:
         elif file_path.name == "pyproject.toml":
             print(f"Format {file_path} as a pyproject.toml")
             _canonicalize_pyproject(file_path)
+
+        elif file_path.name in (".pre-commit-config.yaml", ".pre-commit-config.yml"):
+            print(f"Format {file_path} as a pre-commit configuration")
+            _canonicalize_pre_commit(file_path)
 
 
 if __name__ == "__main__":

@@ -42,7 +42,7 @@ ruamel-yaml = "0.18.10"
 multi-repo-automation = "1.7.0"
 
 [tool.poetry.group.dev.dependencies]
-prospector = { version = "1.15.2", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
+prospector = { version = "1.15.3", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
 prospector-profile-utils = "1.22.3"
 prospector-profile-duplicated = "1.10.5"
 pytest = "8.3.4"

@@ -182,7 +182,7 @@ def _canonicalize_pre_commit_exclude(exclude: str) -> Optional[ruamel.yaml.scala
 
 
 def _canonicalize_pre_commit(pre_commit_path: Path) -> None:
-    with mra.EditYAML(pre_commit_path) as pre_commit_config:
+    with mra.EditYAML(pre_commit_path, run_pre_commit=False) as pre_commit_config:
         if "exclude" in pre_commit_config:
             exclude = _canonicalize_pre_commit_exclude(pre_commit_config["exclude"])
             if exclude is not None:
@@ -256,7 +256,7 @@ def main() -> None:
         # is subpath of .github/workflows
         if file_path.parts[:3] == (".github", "workflows"):
             print(f"Format {file_path} as a GitHub workflow")
-            with mra.EditYAML(file_path) as e:
+            with mra.EditYAML(file_path, run_pre_commit=False) as e:
                 _canonicalize_workflow(e)
 
         elif (
@@ -266,7 +266,7 @@ def main() -> None:
             or (len(file_path.parts) == 2 and file_path.parts[0].startswith("prospector_"))
         ):
             print(f"Format {file_path} as a Prospector configuration")
-            with mra.EditYAML(file_path) as e:
+            with mra.EditYAML(file_path, run_pre_commit=False) as e:
                 _canonicalize_prospector(e)
 
         elif file_path.name == "pyproject.toml":

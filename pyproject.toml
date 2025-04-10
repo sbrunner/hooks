@@ -6,34 +6,7 @@ line-length = 110
 convention = "numpy"
 
 [tool.poetry]
-name = "sbrunner-hooks"
 version = "0.0.0"
-description = "Pre commit hook by sbrunner"
-readme = "README.md"
-keywords = ["pre-commit"]
-license = "BSD-2-Clause"
-classifiers = [
-    'Development Status :: 5 - Production/Stable',
-    'Environment :: Console',
-    'License :: OSI Approved :: BSD License',
-    'Operating System :: OS Independent',
-    'Programming Language :: Python',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
-    'Programming Language :: Python :: 3.11',
-    'Programming Language :: Python :: 3.12',
-    'Programming Language :: Python :: 3.13',
-    'Typing :: Typed',
-]
-authors = ["Stéphane Brunner <stephane.brunner@gmail.com>"]
-repository = "https://github.com/sbrunner/hooks"
-
-[tool.poetry.scripts]
-copyright-check = "sbrunner_hooks.copyright:main"
-workflow-timeout-check = "sbrunner_hooks.workflow_timeout:main"
-run-in-dir = "sbrunner_hooks.run_in_dir:main"
-sbrunner-canonicalize = "sbrunner_hooks.canonicalize:main"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
@@ -66,6 +39,39 @@ format-jinja = """
 
 [tool.poetry-plugin-tweak-dependencies-version]
 default = "present"
+
+[project]
+dynamic = ["dependencies", "version"]
+name = "sbrunner-hooks"
+description = "Pre commit hook by sbrunner"
+readme = "README.md"
+keywords = ["pre-commit"]
+license = "BSD-2-Clause"
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'License :: OSI Approved :: BSD License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Typing :: Typed',
+]
+authors = [{name = "Stéphane Brunner",email = "stephane.brunner@gmail.com"}]
+
+[project.urls]
+repository = "https://github.com/sbrunner/hooks"
+"Bug Tracker" = "https://github.com/sbrunner/hooks/issues"
+
+[project.scripts]
+copyright-check = "sbrunner_hooks.copyright:main"
+workflow-timeout-check = "sbrunner_hooks.workflow_timeout:main"
+run-in-dir = "sbrunner_hooks.run_in_dir:main"
+sbrunner-canonicalize = "sbrunner_hooks.canonicalize:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning", "poetry-plugin-tweak-dependencies-version", "poetry-plugin-drop-python-upper-constraint"]

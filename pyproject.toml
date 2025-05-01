@@ -62,6 +62,7 @@ classifiers = [
     'Typing :: Typed',
 ]
 authors = [{name = "Stéphane Brunner",email = "stephane.brunner@gmail.com"}]
+requires-python = ">=3.9"
 
 [project.urls]
 repository = "https://github.com/sbrunner/hooks"

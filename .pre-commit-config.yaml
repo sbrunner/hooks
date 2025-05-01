@@ -163,7 +163,7 @@ repos:
           - poetry==2.1.2 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2024.4.1 # pypi
+          - pipenv==2025.0.1 # pypi
       - id: helm-lock
       - id: canonicalize
   - repo: https://github.com/sirwart/ripsecrets
@@ -180,10 +180,10 @@ repos:
             |\.github/publish\.yaml
           )$
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 39.264.0
+    rev: 40.0.6
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/sbrunner/python-versions-hook
-    rev: 0.8.0
+    rev: 1.0.0
     hooks:
       - id: python-versions

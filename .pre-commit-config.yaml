@@ -51,7 +51,8 @@ repos:
             |.*/)\.?prospector(-.*)?\.ya?ml
             |(
             |.*/)pyproject\.toml
-            |(|.*/).pre-commit-config\.ya?ml
+            |(
+            |.*/).pre-commit-config\.ya?ml
           )$
   - repo: https://github.com/pre-commit/pre-commit
     rev: v4.2.0
@@ -90,6 +91,7 @@ repos:
           - prospector-profile-duplicated==1.10.5 # pypi
           - prospector-profile-utils==1.22.3 # pypi
           - ruff==0.11.8 # pypi
+          - pylint[spelling]==3.3.6 # pypi
         exclude: |-
           (?x)(
             ^tests?/?

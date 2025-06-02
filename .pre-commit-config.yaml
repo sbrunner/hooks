@@ -21,7 +21,7 @@ repos:
           - --files
         language: python
         additional_dependencies:
-          - poetry==2.1.2 # pypi
+          - poetry==2.1.3 # pypi
         files: ^(|.*/)pyproject\.toml$
       - id: pipenv-lock
         name: pipenv lock
@@ -73,7 +73,7 @@ repos:
       - id: mixed-line-ending
       - id: check-json
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.8
+    rev: v0.11.12
     hooks:
       - id: ruff-format
         args:
@@ -90,8 +90,8 @@ repos:
         additional_dependencies:
           - prospector-profile-duplicated==1.10.5 # pypi
           - prospector-profile-utils==1.22.3 # pypi
-          - ruff==0.11.8 # pypi
-          - pylint[spelling]==3.3.6 # pypi
+          - ruff==0.11.12 # pypi
+          - pylint[spelling]==3.3.7 # pypi
         exclude: |-
           (?x)(
             ^tests?/?
@@ -109,7 +109,7 @@ repos:
           - --profile=utils:pre-commit
         additional_dependencies:
           - prospector-profile-utils==1.22.3 # pypi
-          - ruff==0.11.8 # pypi
+          - ruff==0.11.12 # pypi
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:
@@ -123,8 +123,8 @@ repos:
       - id: prettier
         additional_dependencies:
           - prettier@3.5.3 # npm
-          - prettier-plugin-sh@0.17.2 # npm
-          - prettier-plugin-toml@2.0.4 # npm
+          - prettier-plugin-sh@0.17.4 # npm
+          - prettier-plugin-toml@2.0.5 # npm
         exclude: |-
           (?x)^(
             \.gitattributes
@@ -162,10 +162,10 @@ repos:
       - id: workflows-require-timeout
       - id: poetry-lock
         additional_dependencies:
-          - poetry==2.1.2 # pypi
+          - poetry==2.1.3 # pypi
       - id: pipenv-lock
         additional_dependencies:
-          - pipenv==2025.0.1 # pypi
+          - pipenv==2025.0.3 # pypi
       - id: helm-lock
       - id: canonicalize
   - repo: https://github.com/sirwart/ripsecrets
@@ -182,10 +182,10 @@ repos:
             |\.github/publish\.yaml
           )$
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 40.0.6
+    rev: 40.36.8
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/sbrunner/python-versions-hook
-    rev: 1.0.0
+    rev: 1.1.2
     hooks:
       - id: python-versions

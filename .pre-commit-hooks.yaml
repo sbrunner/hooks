@@ -78,6 +78,11 @@
     - --files
   language: python
   files: ^(|.*/)package\.json$
+- id: prospector-to-ruff
+  name: Convert prospector profile to ruff config in pyproject.toml
+  entry: prospector-to-ruff
+  language: python
+  files: ^(|.*/)(\.?prospector(-.*)?\.ya?ml)$
 - id: canonicalize
   name: canonicalize files
   description: Canonicalize the files

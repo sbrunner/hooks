@@ -40,6 +40,11 @@ repos:
           - --files
         language: python
         files: ^(|.*/)Chart\.yaml$
+      - id: prospector-to-ruff
+        name: Convert prospector profile to ruff config in pyproject.toml
+        entry: prospector-to-ruff
+        language: python
+        files: ^(|.*/)(\.?prospector(-.*)?\.ya?ml)$
       - id: canonicalize
         name: canonicalize files
         entry: sbrunner-canonicalize
@@ -160,7 +165,7 @@ repos:
     hooks:
       - id: copyright
       - id: workflows-require-timeout
-      - id: poetry-lock
+      - id: poetry2-lock
         additional_dependencies:
           - poetry==2.1.3 # pypi
       - id: pipenv-lock

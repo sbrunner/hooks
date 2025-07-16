@@ -18,7 +18,9 @@ from sbrunner_hooks.copyright import update_file
         ("# Test (c) 2023-2023\ntoto", "# Test (c) 2023-2024\ntoto", False, False),
     ],
 )
-def test_update_file(content: str, expected: str, expected_updated: bool, required: bool):
+def test_update_file(content: str, expected: str, expected_updated: bool, required: bool) -> None:
+    """Test the update_file function."""
+    # The regexes are used to match the copyright line
     updated, content = update_file(
         content,
         "2023",

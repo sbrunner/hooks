@@ -13,6 +13,7 @@ python = ">=3.9,<4.0"
 PyYAML = "6.0.2"
 ruamel-yaml = "0.18.14"
 multi-repo-automation = "1.7.0"
+prospector = "1.17.2"
 
 [tool.poetry.group.dev.dependencies]
 prospector = { version = "1.17.2", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
@@ -63,7 +64,7 @@ classifiers = [
 ]
 authors = [{name = "Stéphane Brunner",email = "stephane.brunner@gmail.com"}]
 requires-python = ">=3.9"
-dependencies = ["PyYAML", "ruamel-yaml", "multi-repo-automation"]
+dependencies = ["PyYAML", "ruamel-yaml", "multi-repo-automation", "prospector"]
 
 [project.urls]
 repository = "https://github.com/sbrunner/hooks"
@@ -74,6 +75,7 @@ copyright-check = "sbrunner_hooks.copyright:main"
 workflow-timeout-check = "sbrunner_hooks.workflow_timeout:main"
 run-in-dir = "sbrunner_hooks.run_in_dir:main"
 sbrunner-canonicalize = "sbrunner_hooks.canonicalize:main"
+prospector-to-ruff = "sbrunner_hooks.prospector_to_ruff:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]

@@ -33,7 +33,7 @@ def main() -> None:
         file_path = Path.cwd() / file_path  # noqa: PLW2901
         check_success = True
         if args.check:
-            proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
+            proc = subprocess.run(  # pylint: disable=subprocess-run-check # noqa: S603
                 args.check,
                 cwd=file_path.parent,
                 check=False,
@@ -45,7 +45,7 @@ def main() -> None:
         else:
             check_success = False
         if not check_success:
-            proc = subprocess.run(  # pylint: disable=subprocess-run-check # nosec
+            proc = subprocess.run(  # pylint: disable=subprocess-run-check # noqa: S603
                 [*command, file_path.name] if args.pass_filename else command,
                 cwd=file_path.parent,
                 check=False,

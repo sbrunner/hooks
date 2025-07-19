@@ -176,7 +176,7 @@ repos:
       - id: prospector-to-ruff
         additional_dependencies:
           - prospector-profile-duplicated==1.10.5 # pypi
-          - prospector-profile-utils==1.22.3 # pypi
+          - prospector-profile-utils==1.25.0 # pypi
   - repo: https://github.com/sirwart/ripsecrets
     rev: v0.1.9
     hooks:

@@ -18,10 +18,10 @@ python = ">=3.9,<4.0"
 PyYAML = "6.0.2"
 ruamel-yaml = "0.18.14"
 multi-repo-automation = "1.7.0"
-prospector = "1.17.2"
+prospector = "1.17.3"
 
 [tool.poetry.group.dev.dependencies]
-prospector = { version = "1.17.2", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
+prospector = { version = "1.17.3", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
 prospector-profile-utils = "1.25.0"
 prospector-profile-duplicated = "1.10.5"
 pytest = "8.4.1"

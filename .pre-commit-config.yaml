@@ -43,6 +43,8 @@ repos:
       - id: prospector-to-ruff
         name: Convert prospector profile to ruff config in pyproject.toml
         entry: prospector-to-ruff
+        args:
+          - --test=utils:tests
         language: python
         files: ^(|.*/)(\.?prospector(-.*)?\.ya?ml)$
       - id: canonicalize

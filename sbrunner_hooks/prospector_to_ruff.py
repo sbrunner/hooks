@@ -15,6 +15,11 @@ def main() -> None:
         description="Update pyproject.toml with Ruff configuration from prospector.yaml",
     )
     parser.add_argument(
+        "--test",
+        type=Path,
+        help="Path to the test file or profiles to use for testing",
+    )
+    parser.add_argument(
         "prospector_config",
         type=Path,
         nargs="+",
@@ -91,6 +96,20 @@ def main() -> None:
                 current_config[option] = [k for k, v in value.items() if v]
             else:
                 current_config[option] = value
+
+        if args.test:
+            test_profile = prospector.profiles.profile.ProspectorProfile.load(args.test, profile_path)
+            test_ignores = test_profile.ruff.get("disable", [])  # pylint: disable=no-member
+            if test_ignores:
+                lint_config.setdefault("extend-per-file-ignores", {})
+                for file_pattern in (
+                    "tests/**",
+                    "**/tests/**",
+                    "**/test_*.py",
+                    "**/*_test.py",
+                ):
+                    lint_config["extend-per-file-ignores"][file_pattern] = test_ignores
+
         with pyproject_path.open("w", encoding="utf-8") as pyproject_file:
             tomlkit.dump(pyproject_doc, pyproject_file)
 

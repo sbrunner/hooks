@@ -101,6 +101,7 @@ def main() -> None:
             test_profile = prospector.profiles.profile.ProspectorProfile.load(args.test, profile_path)
             test_ignores = test_profile.ruff.get("disable", [])  # pylint: disable=no-member
             if test_ignores:
+                test_ignores = sorted(test_ignores)
                 lint_config.setdefault("extend-per-file-ignores", {})
                 for file_pattern in (
                     "tests/**",
@@ -108,7 +109,10 @@ def main() -> None:
                     "**/test_*.py",
                     "**/*_test.py",
                 ):
-                    lint_config["extend-per-file-ignores"][file_pattern] = test_ignores
+                    if file_pattern not in lint_config["extend-per-file-ignores"] or set(test_ignores) != set(
+                        lint_config["extend-per-file-ignores"][file_pattern],
+                    ):
+                        lint_config["extend-per-file-ignores"][file_pattern] = test_ignores
 
         with pyproject_path.open("w", encoding="utf-8") as pyproject_file:
             tomlkit.dump(pyproject_doc, pyproject_file)

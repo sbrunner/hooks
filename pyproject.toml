@@ -10,6 +10,12 @@ extend-select = ["UP", "I", "S", "B", "ALL"]
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**" = ["E722", "RUF100"]
+"**/tests/**" = ["E722", "RUF100"]
+"**/test_*.py" = ["E722", "RUF100"]
+"**/*_test.py" = ["E722", "RUF100"]
+
 [tool.poetry]
 version = "0.0.0"
 

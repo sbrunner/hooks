@@ -40,12 +40,10 @@ def main() -> None:
 
         print(f"Processing {prospector_config} and updating {pyproject_path}")
 
-        profile_path: list[Path] = []
-
-        workdir = Path.cwd()
-
-        profile_path.append(workdir)
-        profile_path.append(prospector.profiles.profile.BUILTIN_PROFILE_PATH)
+        profile_path: list[Path] = [
+            Path.cwd() / prospector_config.parent,
+            prospector.profiles.profile.BUILTIN_PROFILE_PATH,
+        ]
 
         print(f"Using profile path: {', '.join(str(p) for p in profile_path)}")
 

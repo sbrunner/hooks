@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
+    outputs:
+      success: ${{ steps.success.outputs.success }}
 
     steps:
       - uses: actions/checkout@v5
@@ -56,19 +58,25 @@ jobs:
           path: /tmp/pre-commit.patch
           retention-days: 1
         if: failure()
+
+      # Mark as successful
+      - id: success
+        run: echo "success=true" >> $GITHUB_OUTPUT
+
   build:
     name: Run tests
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    needs: pre-commit
 
     strategy:
       fail-fast: false
       matrix:
         python-version:
           - '3.9'
-          - '3.11'
-          - '3.x'
+          - '3.13'
+    outputs:
+      success-3-9: ${{ steps.success.outputs.success-3-9 }}
+      success-3-13: ${{ steps.success.outputs.success-3-13 }}
 
     steps:
       - uses: actions/checkout@v5
@@ -91,14 +99,27 @@ jobs:
       - run: poetry run pytest --verbose --color=yes tests
       - run: poetry run prospector --output=pylint --die-on-tool-error
 
+      # Mark as successful
+      - id: success
+        run: |
+          version=${{ matrix.python-version }}
+          echo "success-${version//\./-}=true" >> $GITHUB_OUTPUT
+
   publish:
     name: Publish
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
-    needs: build
+    if: always() && !startsWith(github.event.head_commit.message, '[skip ci] ')
+    needs:
+      - pre-commit
+      - build
 
     steps:
+      # Check success
+      - run: '[[ "${{ needs.pre-commit.outputs.success }}" == "true" ]]'
+      - run: '[[ "${{ needs.build.outputs.success-3-9 }}" == "true" ]]'
+      - run: '[[ "${{ needs.build.outputs.success-3-13 }}" == "true" ]]'
+
       - uses: actions/checkout@v5
 
       - uses: actions/setup-python@v6

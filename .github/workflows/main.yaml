@@ -74,9 +74,6 @@ jobs:
         python-version:
           - '3.9'
           - '3.13'
-    outputs:
-      success-3-9: ${{ steps.success.outputs.success-3-9 }}
-      success-3-13: ${{ steps.success.outputs.success-3-13 }}
 
     steps:
       - uses: actions/checkout@v6

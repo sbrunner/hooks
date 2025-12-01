@@ -34,8 +34,6 @@ jobs:
           GITHUB_EVENT: ${{ toJson(github) }}
 
       - uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
       - run: pip install --requirement=ci/requirements.txt
       - run: pip install --editable=.
 
@@ -72,10 +70,10 @@ jobs:
       fail-fast: false
       matrix:
         python-version:
-          - '3.9'
+          - '3.10'
           - '3.13'
     outputs:
-      success-3-9: ${{ steps.success.outputs.success-3-9 }}
+      success-3-10: ${{ steps.success.outputs.success-3-10 }}
       success-3-13: ${{ steps.success.outputs.success-3-13 }}
 
     steps:
@@ -117,14 +115,12 @@ jobs:
     steps:
       # Check success
       - run: '[[ "${{ needs.pre-commit.outputs.success }}" == "true" ]]'
-      - run: '[[ "${{ needs.build.outputs.success-3-9 }}" == "true" ]]'
+      - run: '[[ "${{ needs.build.outputs.success-3-10 }}" == "true" ]]'
       - run: '[[ "${{ needs.build.outputs.success-3-13 }}" == "true" ]]'
 
       - uses: actions/checkout@v5
 
       - uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
       - run: python3 -m pip install --requirement=ci/requirements.txt
 
       - name: Init pypi

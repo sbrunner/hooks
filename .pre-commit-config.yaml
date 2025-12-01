@@ -1,5 +1,8 @@
 # https://pre-commit.com/hooks.html
 
+default_language_version:
+  python: '3.13'
+
 repos:
   - repo: local
     hooks:

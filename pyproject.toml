@@ -20,7 +20,7 @@ convention = "numpy"
 version = "0.0.0"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<4.0"
+python = ">=3.10,<4.0"
 PyYAML = "6.0.3"
 ruamel-yaml = "0.18.16"
 multi-repo-automation = "1.7.0"
@@ -30,7 +30,7 @@ prospector = "1.17.3"
 prospector = { version = "1.17.3", extras = ["with_bandit", "with_mypy", "with_pyroma", "with_ruff"] }
 prospector-profile-utils = "1.26.5"
 prospector-profile-duplicated = "1.10.5"
-pytest = "8.4.2"
+pytest = "9.0.2"
 types-PyYAML = "6.0.12.20250915"
 
 [tool.poetry-dynamic-versioning]

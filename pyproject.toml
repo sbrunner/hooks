@@ -20,7 +20,7 @@ convention = "numpy"
 version = "0.0.0"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<4.0"
+python = ">=3.10,<4.0"
 PyYAML = "6.0.3"
 ruamel-yaml = "0.18.16"
 multi-repo-automation = "1.7.0"

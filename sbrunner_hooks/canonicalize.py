@@ -1,4 +1,4 @@
-# Copyright (c) 2025, Stéphane Brunner
+# Copyright (c) 2025-2026, Stéphane Brunner
 
 import argparse
 import io

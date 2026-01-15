@@ -9,4 +9,4 @@ certifi>=2024.7.4 # not directly required, pinned by Snyk to avoid a vulnerabili
 zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
 tag-publish==1.1.1
 prospector-profile-utils==1.26.5
-prospector-profile-duplicated==1.10.5
+prospector-profile-duplicated==1.11.0

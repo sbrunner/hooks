@@ -22,7 +22,7 @@ version = "0.0.0"
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
 PyYAML = "6.0.3"
-ruamel-yaml = "0.19.0"
+ruamel-yaml = "0.19.1"
 multi-repo-automation = "1.7.0"
 prospector = "1.17.3"
 

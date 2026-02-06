@@ -48,7 +48,7 @@ def main() -> None:
     no_git_log = False
     for file_name in args.files:
         try:
-            status_str = subprocess.run(  # noqa: S603,B607,RUF100
+            status_str = subprocess.run(  # noqa: S603,RUF100
                 ["git", "status", "--porcelain", "--", file_name],  # noqa: S607
                 check=True,
                 encoding="utf-8",
@@ -60,14 +60,14 @@ def main() -> None:
                     print(f"File '{file_name}' is not committed.")
             else:
                 if file_name == license_file:
-                    date_str = subprocess.run(  # noqa: S603,B607,RUF100
+                    date_str = subprocess.run(  # noqa: S603,RUF100
                         ["git", "log", "--pretty=format:%ci", "-1"],  # noqa: S607
                         check=True,
                         encoding="utf-8",
                         stdout=subprocess.PIPE,
                     ).stdout
                 else:
-                    date_str = subprocess.run(  # noqa: S603,B607,RUF100
+                    date_str = subprocess.run(  # noqa: S603,RUF100
                         ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],  # noqa: S607
                         check=True,
                         encoding="utf-8",

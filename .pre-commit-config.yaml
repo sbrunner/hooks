@@ -83,13 +83,13 @@ repos:
       - id: mixed-line-ending
       - id: check-json
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.14
+    rev: v0.15.0
     hooks:
       - id: ruff-format
         args:
           - --line-length=110
   - repo: https://github.com/PyCQA/prospector
-    rev: v1.17.3
+    rev: v1.18.0
     hooks:
       - id: prospector
         args:
@@ -98,10 +98,10 @@ repos:
           - --output-format=pylint
           - --profile=.prospector.yaml
         additional_dependencies:
-          - prospector-profile-duplicated==1.11.0 # pypi
+          - prospector-profile-duplicated==1.12.0 # pypi
           - prospector-profile-utils==1.26.5 # pypi
-          - ruff==0.14.14 # pypi
-          - pylint[spelling]==3.3.9 # pypi
+          - ruff==0.15.0 # pypi
+          - pylint[spelling]==4.0.4 # pypi
         exclude: |-
           (?x)(
             ^tests?/?
@@ -119,7 +119,7 @@ repos:
           - --profile=utils:pre-commit
         additional_dependencies:
           - prospector-profile-utils==1.26.5 # pypi
-          - ruff==0.14.14 # pypi
+          - ruff==0.15.0 # pypi
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:
@@ -180,7 +180,7 @@ repos:
       - id: canonicalize
       - id: prospector-to-ruff
         additional_dependencies:
-          - prospector-profile-duplicated==1.11.0 # pypi
+          - prospector-profile-duplicated==1.12.0 # pypi
           - prospector-profile-utils==1.26.5 # pypi
         args:
           - --test=utils:tests
@@ -198,7 +198,7 @@ repos:
             |\.github/publish\.yaml
           )$
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 43.0.9
+    rev: 43.4.0
     hooks:
       - id: renovate-config-validator
   # - repo: https://github.com/sbrunner/python-versions-hook

@@ -3,9 +3,17 @@ inherits:
   - utils:base
   - utils:no-design-checks
   - utils:fix
+
 mypy:
   options:
     python-version: '3.9'
+
+bandit:
+  options:
+    skips:
+      - B607 # Starting a process with a partial executable path
+      - B101 # Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
 ruff:
   options:
     target-version: py39

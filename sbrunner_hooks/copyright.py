@@ -4,6 +4,7 @@
 import argparse
 import datetime
 import re
+import shutil
 import subprocess  # nosec
 import sys
 from datetime import timezone
@@ -44,58 +45,68 @@ def main() -> None:
     year_re = re.compile(r"^(?P<year>[0-9]{4})-")
     license_file = config.get("license_file", "LICENSE")
 
+    git_cmd = shutil.which("git")
     success = True
     no_git_log = False
     for file_name in args.files:
-        try:
-            status_str = subprocess.run(  # noqa: S603,RUF100
-                ["git", "status", "--porcelain", "--", file_name],  # noqa: S607
-                check=True,
-                encoding="utf-8",
-                stdout=subprocess.PIPE,
-            ).stdout
-            if status_str:
-                used_year = CURRENT_YEAR
-                if args.verbose:
-                    print(f"File '{file_name}' is not committed.")
-            else:
-                if file_name == license_file:
-                    date_str = subprocess.run(  # noqa: S603,RUF100
-                        ["git", "log", "--pretty=format:%ci", "-1"],  # noqa: S607
-                        check=True,
-                        encoding="utf-8",
-                        stdout=subprocess.PIPE,
-                    ).stdout
-                else:
-                    date_str = subprocess.run(  # noqa: S603,RUF100
-                        ["git", "log", "--follow", "--pretty=format:%ci", "--", file_name],  # noqa: S607
-                        check=True,
-                        encoding="utf-8",
-                        stdout=subprocess.PIPE,
-                    ).stdout
-                if not date_str:
-                    if args.verbose:
-                        print(f"No log found with git on '{file_name}'.")
-                    elif not no_git_log:
-                        print(
-                            f"No log found with git on '{file_name}' (the next messages will be hidden).",
-                        )
-                        no_git_log = True
-                    used_year = CURRENT_YEAR
-                else:
-                    if args.verbose:
-                        print(f"File '{file_name}' was committed on '{date_str}'.")
-                    used_year_match = year_re.search(date_str)
-                    assert used_year_match is not None  # nosec
-                    used_year = used_year_match.group("year")
-        except FileNotFoundError:
+        if git_cmd is None:
             if not no_git_log:
                 print("No Git found.")
                 no_git_log = True
             used_year = CURRENT_YEAR
-        except subprocess.CalledProcessError as error:
-            print(f"Error with Git on '{file_name}' ({error!s}).")
-            used_year = CURRENT_YEAR
+        else:
+            try:
+                status_str = subprocess.run(  # noqa: S603,RUF100
+                    [git_cmd, "status", "--porcelain", "--", file_name],
+                    check=True,
+                    encoding="utf-8",
+                    stdout=subprocess.PIPE,
+                ).stdout
+                if status_str:
+                    used_year = CURRENT_YEAR
+                    if args.verbose:
+                        print(f"File '{file_name}' is not committed.")
+                else:
+                    if file_name == license_file:
+                        date_str = subprocess.run(  # noqa: S603,S607,RUF100
+                            [git_cmd, "log", "--no-show-signature", "--pretty=format:%ci", "-1"],
+                            check=True,
+                            encoding="utf-8",
+                            stdout=subprocess.PIPE,
+                        ).stdout
+                    else:
+                        date_str = subprocess.run(  # noqa: S603,S607,RUF100
+                            [
+                                git_cmd,
+                                "log",
+                                "--no-show-signature",
+                                "--follow",
+                                "--pretty=format:%ci",
+                                "--",
+                                file_name,
+                            ],
+                            check=True,
+                            encoding="utf-8",
+                            stdout=subprocess.PIPE,
+                        ).stdout
+                    if not date_str:
+                        if args.verbose:
+                            print(f"No log found with git on '{file_name}'.")
+                        elif not no_git_log:
+                            print(
+                                f"No log found with git on '{file_name}' (the next messages will be hidden).",
+                            )
+                            no_git_log = True
+                        used_year = CURRENT_YEAR
+                    else:
+                        if args.verbose:
+                            print(f"File '{file_name}' was committed on '{date_str}'.")
+                        used_year_match = year_re.search(date_str)
+                        assert used_year_match is not None  # nosec
+                        used_year = used_year_match.group("year")
+            except subprocess.CalledProcessError as error:
+                print(f"Error with Git on '{file_name}' ({error!s}).")
+                used_year = CURRENT_YEAR
 
         with Path(file_name).open(encoding="utf-8") as file_obj:
             content = file_obj.read()

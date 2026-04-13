@@ -82,6 +82,7 @@ def main() -> None:
                                 "--no-show-signature",
                                 "--follow",
                                 "--pretty=format:%ci",
+                                "-1",
                                 "--",
                                 file_name,
                             ],

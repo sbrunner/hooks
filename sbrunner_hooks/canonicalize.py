@@ -201,35 +201,23 @@ def _canonicalize_pyproject(path: Path) -> None:
         doc = tomlkit.parse(f.read())
 
     new_doc = tomlkit.document()
-    if "tool" not in new_doc:
+    if "tool" in doc and isinstance(doc["tool"], dict):
         tool = doc["tool"]
-        if isinstance(tool, tomlkit.items.Table) and "ruff" in tool:
-            ruff = tool["ruff"]
-            if isinstance(ruff, tomlkit.items.Table):
-                new_doc["tool"] = {"ruff": ruff}
-                if "lint" in ruff:
-                    new_tool = new_doc["tool"]
-                    assert isinstance(new_tool, tomlkit.items.Table)
-                    new_ruff = new_tool["ruff"]
-                    assert isinstance(new_ruff, tomlkit.items.Table)
-                    new_ruff["lint"] = ruff["lint"]
+        new_doc["tool"] = {
+            **({"ruff": tool["ruff"]} if "ruff" in tool else {}),
+            **{subkey: tool[subkey] for subkey in sorted(tool) if subkey != "ruff"},
+        }
 
-    for key, value in doc.items():
-        if key not in new_doc and key != "build-system":
-            new_doc[key] = value
-        elif key == "tool":
-            for subkey, subvalue in value.items():
-                new_tool = new_doc["tool"]
-                assert isinstance(new_tool, tomlkit.items.Table)
-                if subkey not in new_tool:
-                    new_tool[subkey] = subvalue
+    for key in sorted(doc):
+        if key not in ("tool", "build-system"):
+            new_doc[key] = doc[key]
 
     if "build-system" in doc:
         new_doc["build-system"] = doc["build-system"]
 
     # Remove double end of line
     out = io.StringIO()
-    tomlkit.dump(new_doc, out, sort_keys=True)
+    tomlkit.dump(new_doc, out, sort_keys=False)
     new_lines = []
     last_empty = False
     for line in out.getvalue().split("\n"):

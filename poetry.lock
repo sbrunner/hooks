@@ -681,14 +681,14 @@ files = [
 
 [[package]]
 name = "multi-repo-automation"
-version = "1.9.0"
+version = "1.9.1"
 description = "Library for automation updates on multiple repositories."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "multi_repo_automation-1.9.0-py3-none-any.whl", hash = "sha256:f3709d69afb1645d45386dd375f6dc0dc0bbd9d069f8e2f898272dc666c3ce16"},
-    {file = "multi_repo_automation-1.9.0.tar.gz", hash = "sha256:48a81f3850f2b2cbaf31d951f7f43280cad395e0b7d5963c770f6970dfbc468a"},
+    {file = "multi_repo_automation-1.9.1-py3-none-any.whl", hash = "sha256:5214483d336b9e9c2498ee85b196b4b7150aed943c2a3507a98468b737b1d652"},
+    {file = "multi_repo_automation-1.9.1.tar.gz", hash = "sha256:752f692313e5e58f192d731619facc466d1f186ccd8d0ac8a90cb085150fd7f9"},
 ]
 
 [package.dependencies]
@@ -703,7 +703,6 @@ requests = "*"
 security_md = "*"
 tomlkit = "*"
 typing-extensions = "*"
-urllib3 = "2.6.3"
 
 [[package]]
 name = "mypy"
@@ -1106,14 +1105,14 @@ test = ["flit-core (>=3.4,<4)", "pytest", "setuptools (>=60)", "tox", "zest.rele
 
 [[package]]
 name = "pytest"
-version = "9.0.3"
+version = "9.1.1"
 description = "pytest: simple powerful testing with Python"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "pytest-9.0.3-py3-none-any.whl", hash = "sha256:2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9"},
-    {file = "pytest-9.0.3.tar.gz", hash = "sha256:b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c"},
+    {file = "pytest-9.1.1-py3-none-any.whl", hash = "sha256:37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c"},
+    {file = "pytest-9.1.1.tar.gz", hash = "sha256:1088fbde8f2b49d95a549a195707afa7a76a3ce9bcadc26b6d71f0ffda5fe313"},
 ]
 
 [package.dependencies]
@@ -1565,4 +1564,4 @@ type = ["pytest-mypy (>=1.0.1) ; platform_python_implementation != \"PyPy\""]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4.0"
-content-hash = "020a36d0f3bd15c6454930a8596a45a3196088db77bab69903f7e4c306d37b80"
+content-hash = "01ead65261ac8a4d17ec0e7b7bd5e9763a3bfdf31e8c29f685b36f61c2a2c795"

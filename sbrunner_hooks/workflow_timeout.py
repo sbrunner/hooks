@@ -9,8 +9,7 @@ import yaml
 
 
 def main() -> None:
-# Copyright (c) 2025-2026, Stéphane Brunner
-"""Check that the GitHub workflow has a timeout."""
+    """Check that the GitHub workflow has a timeout."""
     parser = argparse.ArgumentParser(description="""Check that the GitHub workflow has a timeout.""")
     parser.add_argument("files", nargs=argparse.REMAINDER, help="The files to check")
     args = parser.parse_args()

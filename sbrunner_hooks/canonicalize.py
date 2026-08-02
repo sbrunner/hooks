@@ -182,7 +182,6 @@ def _canonicalize_pre_commit_exclude(exclude: str) -> Optional[ruamel.yaml.scala
             ),
         ),
     )
-)
 
 
 def _canonicalize_pre_commit(pre_commit_path: Path) -> None:

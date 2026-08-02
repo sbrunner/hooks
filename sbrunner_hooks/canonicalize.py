@@ -171,7 +171,7 @@ def _canonicalize_pre_commit_exclude(exclude: str) -> Optional[ruamel.yaml.scala
     files = _split_pipe(exclude)
 
     return cast(
-        Optional[ruamel.yaml.scalarstring.LiteralScalarString],
+        "Optional[ruamel.yaml.scalarstring.LiteralScalarString]",
         ruamel.yaml.scalarstring.LiteralScalarString(
             "\n".join(
                 [

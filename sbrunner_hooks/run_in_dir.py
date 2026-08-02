@@ -7,7 +7,8 @@ from pathlib import Path
 
 
 def main() -> None:
-    """Run a command in files folder."""
+# Copyright (c) 2025-2026, Stéphane Brunner
+"""Run a command in files folder."""
     parser = argparse.ArgumentParser(
         description="""Run a command in files folder.
 

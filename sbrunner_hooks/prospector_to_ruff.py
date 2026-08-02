@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Copyright (c) 2025-2026, Stéphane Brunner
+
 # Get the Ruff configuration from the prospector.yaml and put it in the pyproject.toml
 
 import argparse

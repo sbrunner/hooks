@@ -170,18 +170,19 @@ def _canonicalize_pre_commit_exclude(exclude: str) -> Optional[ruamel.yaml.scala
 
     files = _split_pipe(exclude)
 
+
 return cast(
-        Optional[ruamel.yaml.scalarstring.LiteralScalarString],
-        ruamel.yaml.scalarstring.LiteralScalarString(
-            "\n".join(
-                [
-                    f"(?x){start}",
-                    *[f"  {file}" for file in files],
-                    end,
-                ]
-            ),
+    "Optional[ruamel.yaml.scalarstring.LiteralScalarString]",
+    ruamel.yaml.scalarstring.LiteralScalarString(
+        "\n".join(
+            [
+                f"(?x){start}",
+                *[f"  {file}" for file in files],
+                end,
+            ]
         ),
-    )
+    ),
+)
 
 
 def _canonicalize_pre_commit(pre_commit_path: Path) -> None:

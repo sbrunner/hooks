@@ -1,3 +1,4 @@
+# Copyright (c) 2025-2026, Stéphane Brunner
 """Check that the GitHub workflow has a timeout."""
 
 import argparse

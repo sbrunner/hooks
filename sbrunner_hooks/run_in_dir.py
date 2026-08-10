@@ -1,3 +1,4 @@
+# Copyright (c) 2025-2026, Stéphane Brunner
 """Run a command in files folder."""
 
 import argparse

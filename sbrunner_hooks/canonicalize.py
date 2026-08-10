@@ -4,7 +4,7 @@ import argparse
 import io
 import re
 from pathlib import Path
-from typing import Any, AnyStr, Optional, Union
+from typing import Any, AnyStr, Optional, Union, cast
 
 import multi_repo_automation as mra
 import ruamel.yaml
@@ -170,13 +170,16 @@ def _canonicalize_pre_commit_exclude(exclude: str) -> Optional[ruamel.yaml.scala
 
     files = _split_pipe(exclude)
 
-    return ruamel.yaml.scalarstring.LiteralScalarString(
-        "\n".join(
-            [
-                f"(?x){start}",
-                *[f"  {file}" for file in files],
-                end,
-            ],
+    return cast(
+        "Optional[ruamel.yaml.scalarstring.LiteralScalarString]",
+        ruamel.yaml.scalarstring.LiteralScalarString(
+            "\n".join(
+                [
+                    f"(?x){start}",
+                    *[f"  {file}" for file in files],
+                    end,
+                ]
+            ),
         ),
     )
 

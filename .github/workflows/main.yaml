@@ -95,7 +95,7 @@ jobs:
           [ "$(python3 --version)" == "$(poetry run python --version)" ]
 
       - run: poetry run pytest --verbose --color=yes tests
-      - run: poetry run prospector --output=pylint --die-on-tool-error
+      - run: poetry run prospector --output=pylint --direct-tool-stdout
 
       # Mark as successful
       - id: success

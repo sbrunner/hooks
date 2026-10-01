@@ -19,7 +19,7 @@ env:
 jobs:
   pre-commit:
     name: Pre commit
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
     outputs:
@@ -63,7 +63,7 @@ jobs:
 
   build:
     name: Run tests
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 15
 
     strategy:
@@ -105,7 +105,7 @@ jobs:
 
   publish:
     name: Publish
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 15
     if: always() && !startsWith(github.event.head_commit.message, '[skip ci] ')
     needs:

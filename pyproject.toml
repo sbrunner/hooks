@@ -86,6 +86,7 @@ repository = "https://github.com/sbrunner/hooks"
 copyright-check = "sbrunner_hooks.copyright:main"
 workflow-timeout-check = "sbrunner_hooks.workflow_timeout:main"
 run-in-dir = "sbrunner_hooks.run_in_dir:main"
+uv-lock = "sbrunner_hooks.uv_lock:main"
 sbrunner-canonicalize = "sbrunner_hooks.canonicalize:main"
 prospector-to-ruff = "sbrunner_hooks.prospector_to_ruff:main"
 

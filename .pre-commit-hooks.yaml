@@ -60,6 +60,14 @@
   additional_dependencies:
     - pipenv
   files: ^(|.*/)Pipfile$
+- id: uv-lock
+  name: uv lock
+  description: Lock the requirements from the `.in` file with uv, in the file with the same name and the `.txt` extension
+  entry: uv-lock
+  language: python
+  additional_dependencies:
+    - uv==0.12.23
+  files: ^(|.*/)[\w.-]*requirements\.in$
 - id: helm-lock
   name: helm lock
   description: Lock the from the Chart.yaml file

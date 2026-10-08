@@ -60,6 +60,28 @@
   additional_dependencies:
     - pipenv
   files: ^(|.*/)Pipfile$
+- id: uv-lock
+  name: uv lock
+  description: Lock the dependencies from the pyproject.toml file in the uv.lock file
+  entry: run-in-dir --cmd uv lock
+  args:
+    - --files
+  language: python
+  additional_dependencies:
+    - uv==0.12.23
+  files: ^(|.*/)pyproject\.toml$
+- id: uv-pylock
+  name: uv export pylock.toml
+  description: Export the PEP 751 lock file from the uv.lock file, in the pylock.toml file
+  entry: run-in-dir --cmd uv export
+  args:
+    - -a--format=pylock.toml
+    - -a--output-file=pylock.toml
+    - --files
+  language: python
+  additional_dependencies:
+    - uv==0.12.23
+  files: ^(|.*/)uv\.lock$
 - id: helm-lock
   name: helm lock
   description: Lock the from the Chart.yaml file

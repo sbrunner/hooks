@@ -38,10 +38,31 @@ repos:
       - id: pipenv-lock
         additional_dependencies:
           - pipenv==<version>
+      # Do uv lock, from the pyproject.toml file to the uv.lock file
+      - id: uv-lock
+        additional_dependencies:
+          - uv==<version>
+      # Export the PEP 751 lock file, from the uv.lock file to the pylock.toml file
+      - id: uv-pylock
+        additional_dependencies:
+          - uv==<version>
       # Do Helm lock (helm should be installed)
       - id: helm-lock
       - id: npm-lock
 ```
+
+## uv
+
+The `uv-lock` hook runs `uv lock` in the folder of the `pyproject.toml` file and generates the
+`uv.lock` file, the native uv lock format.
+
+The `uv-pylock` hook runs `uv export --format=pylock.toml --output-file=pylock.toml` in the folder of
+the `uv.lock` file and generates the `pylock.toml` file, the PEP 751 lock format.
+
+As with the other lock hooks, the hooks modify the files and pre-commit fails: in the continuous
+integration the change is uploaded as the `Apply pre-commit fix.patch` artifact and applied by the
+`patch` module of ghci, so a dependency bump of the `.in` file regenerates the `.txt` file
+automatically.
 
 ## Copyright configuration
 

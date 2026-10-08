@@ -24,7 +24,7 @@ def main() -> None:
     parser.add_argument("--pass-filename", action="store_true", help="Pass the filename to the command")
     parser.add_argument("--check", nargs="+", help="The check command")
     parser.add_argument("--cmd", nargs="+", help="The command", required=True)
-    parser.add_argument("-a", "--arg", "--args", nargs="+", help="The args", default=[])
+    parser.add_argument("-a", "--arg", "--args", action="append", help="The args", default=[])
     parser.add_argument("--files", nargs="+", help="The files", required=True)
     args = parser.parse_args()
 

@@ -46,12 +46,6 @@ repos:
       - id: uv-pylock
         additional_dependencies:
           - uv==<version>
-      # Do uv pip compile, from a `*.in` file to the `*.txt` file with the hashes
-      - id: uv-pip-compile
-        args:
-          - --python-version=3.14
-        additional_dependencies:
-          - uv==<version>
       # Do Helm lock (helm should be installed)
       - id: helm-lock
       - id: npm-lock
@@ -64,22 +58,6 @@ The `uv-lock` hook runs `uv lock` in the folder of the `pyproject.toml` file and
 
 The `uv-pylock` hook runs `uv export --format=pylock.toml --output-file=pylock.toml` in the folder of
 the `uv.lock` file and generates the `pylock.toml` file, the PEP 751 lock format.
-
-The `uv-pip-compile` hook compiles every `*requirements.in` file with
-`uv pip compile --generate-hashes --no-header` and writes the result in the file with the same name
-and the `.txt` extension. The generated file is a pip requirements file, fully locked: every
-transitive dependency is pinned with its hashes, which is what a publishing job should install. The
-hashes make every downloaded artifact verifiable, and the header is dropped because it contains the
-command line, which changes from one machine to another and pollutes the diffs.
-
-Arguments of `uv-pip-compile`:
-
-- `--python-version=<version>`: the Python version used to resolve the dependencies, it should be the
-  version of the interpreter that installs the generated file.
-- `--extension=<extension>`: the extension of the generated file, `.txt` by default, the result is a
-  pip requirements file and not a lock file.
-- `--no-hashes`: do not pass `--generate-hashes` to `uv pip compile`.
-- `--header`: do not pass `--no-header` to `uv pip compile`.
 
 As with the other lock hooks, the hooks modify the files and pre-commit fails: in the continuous
 integration the change is uploaded as the `Apply pre-commit fix.patch` artifact and applied by the

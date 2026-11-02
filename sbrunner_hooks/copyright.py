@@ -2,12 +2,11 @@
 """Update the copyright header of the files."""
 
 import argparse
-import datetime
 import re
 import shutil
 import subprocess  # nosec
 import sys
-from datetime import timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -18,7 +17,7 @@ if TYPE_CHECKING:
 else:
     StrPattern = re.Pattern
 
-CURRENT_YEAR = str(datetime.datetime.now(timezone.utc).year)
+CURRENT_YEAR = str(datetime.now(timezone.utc).year)
 
 
 def main() -> None:

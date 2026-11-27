@@ -26,6 +26,15 @@ repos:
         additional_dependencies:
           - poetry==2.5.1 # pypi
         files: ^(|.*/)pyproject\.toml$
+      - id: uv-lock
+        name: uv lock
+        entry: run-in-dir --cmd uv lock
+        args:
+          - --files
+        language: python
+        additional_dependencies:
+          - uv==0.13.5 # pypi
+        files: ^\.github/publish/pyproject\.toml$
       - id: pipenv-lock
         name: pipenv lock
         entry: run-in-dir --cmd pipenv lock

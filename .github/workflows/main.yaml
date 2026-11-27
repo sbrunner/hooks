@@ -12,6 +12,7 @@ permissions:
   contents: read
 
 env:
+  POETRY_INSTALLER_ONLY_BINARY: 'true'
   PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
 
 jobs:
@@ -32,7 +33,7 @@ jobs:
           GITHUB_EVENT: ${{ toJson(github) }}
 
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-      - run: pip install --requirement=ci/requirements.txt
+      - run: pip install '--only-binary=:all:' --requirement=ci/requirements.txt
       - run: pip install --editable=.
 
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -82,7 +83,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - run: pip install --requirement=ci/requirements.txt
+      - run: pip install '--only-binary=:all:' --requirement=ci/requirements.txt
 
       - run: poetry install
       - name: Versions
